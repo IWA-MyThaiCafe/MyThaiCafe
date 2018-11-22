@@ -1,16 +1,14 @@
+# My Thai Cafe
 
-TITLE: 
-Foodee - One Page Responsive Free HTML5 template
 
-AUTHOR:
-DESIGNED & DEVELOPED by FREEHTML5.co
 
+
+## CREDITS:
+```
 Website: http://freehtml5.co/
 Twitter: http://twitter.com/fh5co
 Facebook: http://facebook.com/fh5co
 
-
-CREDITS:
 
 Bootstrap
 http://getbootstrap.com/
@@ -53,3 +51,4 @@ http://pexels.com
 
 Icon Images Hand-drawn
 handdrawngoods.com/store/tasty-icons-free-food-icons/
+```
