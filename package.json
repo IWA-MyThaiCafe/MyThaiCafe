@@ -1,0 +1,19 @@
+{
+  "name": "mythaicafe",
+  "version": "1.0.0",
+  "description": "```\r Website: http://freehtml5.co/\r Twitter: http://twitter.com/fh5co\r Facebook: http://facebook.com/fh5co",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IWA-MyThaiCafe/MyThaiCafe.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IWA-MyThaiCafe/MyThaiCafe/issues"
+  },
+  "homepage": "https://github.com/IWA-MyThaiCafe/MyThaiCafe#readme"
+}

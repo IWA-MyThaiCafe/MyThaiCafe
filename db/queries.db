@@ -1,0 +1,10 @@
+CREATE TABLE `mythaicafe`.`user` (
+  `id` VARCHAR(70) NOT NULL,
+  `firstname` VARCHAR(45) NULL,
+  `lastname` VARCHAR(45) NULL,
+  `middlename` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `role` ENUM('admin', 'client') NOT NULL DEFAULT 'client',
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC));

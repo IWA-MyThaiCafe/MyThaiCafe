@@ -1,4 +1,7 @@
-
+<?php
+session_start();
+ob_start();
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -7,25 +10,10 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Foodee &mdash; 100% Free Fully Responsive HTML5 Template by FREEHTML5.co</title>
+	<title>My Thai Cafe</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
-	<meta name="author" content="FREEHTML5.CO" />
-
-  <!-- 
-	//////////////////////////////////////////////////////
-
-	FREE HTML5 TEMPLATE 
-	DESIGNED & DEVELOPED by FREEHTML5.CO
-		
-	Website: 		http://freehtml5.co/
-	Email: 			info@freehtml5.co
-	Twitter: 		http://twitter.com/fh5co
-	Facebook: 		https://www.facebook.com/fh5co
-
-	//////////////////////////////////////////////////////
-	 -->
 
   	<!-- Facebook and Twitter integration -->
 	<meta property="og:title" content=""/>
@@ -73,17 +61,12 @@
 		<div id="fh5co-home" class="js-fullheight" data-section="home">
 
 			<div class="flexslider">
-				
 				<div class="fh5co-overlay"></div>
 				<div class="fh5co-text">
 					<div class="container">
 						<div class="row">
-<<<<<<< HEAD
-							<h1 class="to-animate">foodee11</h1>
-=======
-							<h1 class="to-animate">foodee12</h1>
->>>>>>> 701bcb93fe19beaa0db1e4eed8ad83fc47ea8f1d
-							<h2 class="to-animate">Lovely Designed <span>by</span> <a href="http://freehtml5.co/" target="_blank">freehtml5.co</a></h2>
+							<h1 class="to-animate">My Thai Cafe</h1>
+							<!-- <h2 class="to-animate">Lovely Designed <span>by</span> <a href="http://freehtml5.co/" target="_blank">freehtml5.co</a></h2> -->
 						</div>
 					</div>
 				</div>
@@ -106,7 +89,7 @@
 						<a href="#" data-nav-section="features">Features</a>
 					</div>
 					<div class="fh5co-logo">
-						<a href="index.html">foodee</a>
+						<a href="index.html">My Thai Cafe</a>
 					</div>
 					<div class="fh5co-menu-2">
 						<a href="#" data-nav-section="menu">Menu</a>
@@ -659,11 +642,6 @@
 			</div>
 		</div>
 	</div>
-
-
-	
-	
-	
 	
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>

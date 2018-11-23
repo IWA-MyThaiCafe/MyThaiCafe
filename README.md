@@ -1,8 +1,6 @@
 # My Thai Cafe
 
 
-
-
 ## CREDITS:
 ```
 Website: http://freehtml5.co/
