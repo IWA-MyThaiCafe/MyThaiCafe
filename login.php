@@ -74,7 +74,6 @@ ob_start();
 		      $count = mysqli_num_rows($result);
 		      
 		      //If result matched $myusername and $mypassword, table row must be 1 row
-				
 		      if($count == 1) {
 		        $_SESSION['login_user'] = $myusername;
 				$_SESSION['UserID'] = $row["id"];
@@ -90,14 +89,13 @@ ob_start();
 			   		  echo $myusername;
 			  	}
 		      }else {
-		      	echo '<script type="text/javascript">alert("Your Login Name or Password is invalid"); </script>';
-		         $error = "Your Login Name or Password is invalid";
+		      	// echo '<script type="text/javascript">alert("Your Login Name or Password is invalid"); </script>';
+		         $message = "Your Login Name or Password is invalid";
 		      }
 		   }
 	?> 
 
 	<div id="fh5co-container">
-
 		<div class="js-sticky">
 			<div class="fh5co-main-nav">
 				<div class="container-fluid">
@@ -130,6 +128,16 @@ ob_start();
 				<div class="row centered">
 					<div class="col-md-12 to-animate-2">
 					<form method="post" action="login.php">
+
+						<div class="alert alert-primary" role="alert">
+							<strong>
+							<?php
+								echo $message;
+							?>
+						</strong>
+							
+						</div>	
+					
 						<div class="form-group ">
 							<label for="email" class="sr-only">email</label>
 							<input id="email" name="email" class="form-control" placeholder="johnhinkle@gmail.com" type="text" required="true">
