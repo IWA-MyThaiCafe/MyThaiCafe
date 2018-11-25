@@ -58,42 +58,7 @@ session_start();
 	</head>
 	<body>
 	<?php
-		include("../app/config.php");
-		// include('header.php');
-
-		if($_SERVER["REQUEST_METHOD"] == "POST") {
-
-			$itemcode = mysqli_real_escape_string($db,$_POST['code']);
-			$itemname = mysqli_real_escape_string($db,$_POST['name']);
-			$description = mysqli_real_escape_string($db,$_POST['description']); 
-			$category = mysqli_real_escape_string($db,$_POST['category']); 
-			$price = mysqli_real_escape_string($db,$_POST['price']); 
-			$spice = mysqli_real_escape_string($db,$_POST['spice']); 
-
-			$sql = "SELECT  * FROM menu WHERE code = '$itemcode'";
-			$result = mysqli_query($db,$sql);
-			$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-			$count = mysqli_num_rows($result);
-				
-			if($count >= 1) {
-				$message  = "<p>Item exists in our records</p>";
-			}
-				else{
-					$id = uniqid();
-					$sqlInsert="INSERT INTO menu(id,code,name,description,category,price,spice) values('".$id."','".$itemcode."','".$itemname."','".$description."','".$category."','".$price."','".$spice."')";
-					
-					if (mysqli_query($db, $sqlInsert))
-					{
-							echo "<script>console.log( 'Debug Objects: " . json_encode($_POST) . "' );</script>";
-							$message = "<p><strong> New Item </strong> has been added to menu</p>";                                       
-							// header("location: home.php");
-							
-					}
-					else{
-							$message = "<p><strong> Unable </strong> to add new item to menu. Please try again</p>";                                       
-					}
-			}
-		}
+		
 	?> 
 
 	<div id="fh5co-container">
@@ -164,7 +129,7 @@ session_start();
 							</div>
 							<div class="form-group ">
 								<label for="price" class="sr-only">Price</label>
-								<input id="price" name="price" step="0.01" class="form-control" placeholder="Price" type="number">
+								<input id="price" name="price" step="0.01" class="form-control" placeholder="price" type="number">
 							</div>
 							<div class="form-group ">
 								<label for="description" class="sr-only">Description</label>

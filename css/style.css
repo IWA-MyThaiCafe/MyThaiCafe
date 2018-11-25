@@ -1361,3 +1361,24 @@ p {
   margin: auto; 
   max-width: 450px;
 }
+
+.add-to-cart{
+  height:3.5rem;
+  font-size: 1.20rem;
+  width: 10rem;
+}
+
+.add-to-cart-button {
+  height: 3.5rem;
+  font-size: 1rem;
+  width: 9.5rem;
+  margin-top: 4px;
+  padding: 1rem;
+  background: black;
+  border: none;
+  color: white;
+}
+/* 
+.item-quantity {
+  padding-left: 2rem;
+} */
