@@ -63,15 +63,15 @@ ob_start();
 			<div class="fh5co-main-nav">
 				<div class="container-fluid">
 					<div class="fh5co-menu-1">
-						<a href="#" data-nav-section="home">Home</a>
-						<a href="#" data-nav-section="about">About</a>
+						<a href="http://ella.ils.indiana.edu/~tsopher/test/home.php" class="external" data-nav-section="home">Home</a>
+						<a href="http://ella.ils.indiana.edu/~tsopher/test/about.php" class="external">About</a>
 					</div>
 					<div class="fh5co-logo">
 						<a href="index.html">My Thai Cafe</a>
 					</div>
 					<div class="fh5co-menu-2">
 						<a href="#" data-nav-section="menu">Menu</a>
-						<a href="#" data-nav-section="contact">Contact</a>
+						<a href="http://ella.ils.indiana.edu/~tsopher/test/home.php" class="external" data-nav-section="contact">Contact</a>
 					</div>
 				</div>
 				
@@ -108,7 +108,7 @@ ob_start();
 								519 South Walnut Street <br> Bloomington, IN 47401 <br>
 								(812) 330-7004
 							</li>
-							<li><i class="icon-clock2"></i> Lunch <br> Mon.-Sat.: 11 am - 3 pm <br> Dinner <br> Mon.-Thurs.: 4:30 - 9 pm <br> Fri.: 4:30 - 10 pm <br> Sat.: 3 - 10 pm <br> <em>Closed Sundays.</em></li>
+							<li><i class="icon-clock2"></i> Lunch <br> Mon.-Sat.: 11 am - 3 pm <br> <br> Dinner <br> Mon.-Thurs.: 4:30 - 9 pm <br> Fri.: 4:30 - 10 pm <br> Sat.: 3 - 10 pm <br> <em>Closed Sundays.</em></li>
 						</ul>
 					</div>
 					<div class="col-md-6 to-animate-2">

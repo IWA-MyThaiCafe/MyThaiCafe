@@ -58,7 +58,7 @@ ob_start();
 	<body>
 
 	<div id="fh5co-container">
-		<div id="fh5co-home" class="js-fullheight" data-section="home">
+		<div id="fh5co-home" class="js-fullheight">
 
 			<div class="flexslider">
 				<div class="fh5co-overlay"></div>
@@ -84,22 +84,22 @@ ob_start();
 			<div class="fh5co-main-nav">
 				<div class="container-fluid">
 					<div class="fh5co-menu-1">
-						<a href="#" data-nav-section="home">Home</a>
-						<a href="#" data-nav-section="about">About</a>
+						<a href="http://ella.ils.indiana.edu/~tsopher/test/home.php" class="external" data-nav-section="home">Home</a>
+						<a href="http://ella.ils.indiana.edu/~tsopher/test/about.php" class="external">About</a>
 					</div>
 					<div class="fh5co-logo">
 						<a href="index.html">My Thai Cafe</a>
 					</div>
 					<div class="fh5co-menu-2">
-						<a href="#" data-nav-section="menu">Menu</a>
-						<a href="#" data-nav-section="contact">Contact</a>
+						<a href="#">Menu</a>
+						<a href="http://ella.ils.indiana.edu/~tsopher/test/contact.php" class="external">Contact</a>
 					</div>
 				</div>
 				
 			</div>
 		</div>
 
-		<div id="fh5co-about" data-section="about">
+		<div id="fh5co-about" data-section="home">
 			<div class="fh5co-2col fh5co-bg to-animate-2" style="background-image: url(images/res_img_1.jpg)"></div>
 			<div class="fh5co-2col fh5co-text">
 				<h2 class="heading to-animate">About Us</h2>

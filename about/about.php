@@ -63,22 +63,22 @@ ob_start();
 			<div class="fh5co-main-nav">
 				<div class="container-fluid">
 					<div class="fh5co-menu-1">
-						<a href="#" data-nav-section="home">Home</a>
-						<a href="#" data-nav-section="about">About</a>
+						<a href="http://ella.ils.indiana.edu/~tsopher/test/home.php" class="external" data-nav-section="home">Home</a>
+						<a href="http://ella.ils.indiana.edu/~tsopher/test/about.php" class="external" data-nav-section="about">About</a>
 					</div>
 					<div class="fh5co-logo">
 						<a href="index.html">My Thai Cafe</a>
 					</div>
 					<div class="fh5co-menu-2">
 						<a href="#" data-nav-section="menu">Menu</a>
-						<a href="#" data-nav-section="contact">Contact</a>
+						<a href="http://ella.ils.indiana.edu/~tsopher/test/contact.php" class="external" data-nav-section="contact">Contact</a>
 					</div>
 				</div>
 				
 			</div>
 		</div>
 
-		<div id="fh5co-contact" data-section="contact">
+		<div id="fh5co-contact" data-section="about">
 			<div class="row text-center fh5co-heading row-padded">
 				<h2 class="heading to-animate">About Us</h2>					
 			</div>
