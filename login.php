@@ -83,7 +83,7 @@ ob_start();
 		      	if($row["role"] == "client"){
 			  		header("location: index.php");
 			  	} else if($row["role"] == "admin"){
-			  		header("location: admin.php");
+			  		header("location: ./admin/index.php");
 			  	}else if($row["UserType"] == "USER" && $row["role"] == "blocked"){
 					  echo '<script type="text/javascript">alert("Your account is blocked. Please contact system administrator"); </script>';
 			   		  echo $myusername;

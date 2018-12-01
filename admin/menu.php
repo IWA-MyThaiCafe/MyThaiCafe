@@ -1,62 +1,7 @@
 <?php 
 session_start();
 ob_start();
-include("./app/config.php");
-
-
-if(isset($_POST["add_to_cart"]))
-{
-	if(isset($_SESSION["shopping_cart"]))
-	{
-        $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
-        
-        // echo "<script>console.log( 'Debug Objects shopping cart: " . json_encode(in_array($_GET["id"], $item_array_id)) . "' );</script>";            
-        echo "<script>console.log( 'Debug Objects shopping cart: " . json_encode(array_keys($_SESSION["shopping_cart"])) . "' );</script>";            
-
-		if(!in_array($_GET["id"], $item_array_id))
-		{
-			$count = count($_SESSION["shopping_cart"]);
-			$item_array = array(
-				'item_id'			=>	$_GET["id"],
-				'item_name'			=>	$_POST["hidden_name"],
-				'item_price'		=>	$_POST["hidden_price"],
-				'item_quantity'		=>	$_POST["quantity"]
-			);
-			$_SESSION["shopping_cart"][$_GET["id"]] = $item_array;
-		}
-		else
-		{       
-            echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_cart"]) . "' );</script>";            
-            // echo '<script>alert("Item Already Added")</script>';
-		}
-	}
-	else
-	{
-		$item_array = array(
-			'item_id'			=>	$_GET["id"],
-			'item_name'			=>	$_POST["hidden_name"],
-			'item_price'		=>	$_POST["hidden_price"],
-			'item_quantity'		=>	$_POST["quantity"]
-		);
-        $_SESSION["shopping_cart"][$_GET["id"]] = $item_array;
-	}
-}
-
-if(isset($_GET["action"]))
-{
-	if($_GET["action"] == "delete")
-	{
-		foreach($_SESSION["shopping_cart"] as $keys => $values)
-		{
-			if($values["item_id"] == $_GET["id"])
-			{
-				unset($_SESSION["shopping_cart"][$keys]);
-				// echo '<script>alert("Item Removed")</script>';
-				echo '<script>window.location="shopping.php#"</script>';
-			}
-		}
-	}
-}
+include("../app/config.php");
 
 echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_cart"]) . "' );</script>";            
 ?>
@@ -90,23 +35,23 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 	<link href='https://fonts.googleapis.com/css?family=Playfair+Display:400,700,400italic,700italic|Merriweather:300,400italic,300italic,400,700italic' rel='stylesheet' type='text/css'>
 	
 	<!-- Animate.css -->
-	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="../css/animate.css">
 	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="css/icomoon.css">
+	<link rel="stylesheet" href="../css/icomoon.css">
 	<!-- Simple Line Icons -->
-	<link rel="stylesheet" href="css/simple-line-icons.css">
+	<link rel="stylesheet" href="../css/simple-line-icons.css">
 	<!-- Datetimepicker -->
-	<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+	<link rel="stylesheet" href="../css/bootstrap-datetimepicker.min.css">
 	<!-- Flexslider -->
-	<link rel="stylesheet" href="css/flexslider.css">
+	<link rel="stylesheet" href="../css/flexslider.css">
 	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="../css/bootstrap.css">
 
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="../css/style.css">
 
 
 	<!-- Modernizr JS -->
-	<script src="js/modernizr-2.6.2.min.js"></script>
+	<script src="../js/modernizr-2.6.2.min.js"></script>
 	<!-- FOR IE9 below -->
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
@@ -136,9 +81,23 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 				
 			</div>
 		</div>
+		<div class="fh5co-sayings-s-menu">
+			<div class="fh5co-menu-s-2">
+				<a href="../index.php" data-nav-section="events">Menu</a>
+				<a href="../index.php" data-nav-section="menu">Orders</a>
+				<a href="../index.php" data-nav-section="menu">
+				<?php 
+				 	if(isset($_SESSION['firstname'])) {
+						echo $_SESSION['firstname'];
+					}
+					 else{
+						 echo "Guest";
+					 }
+				?>
+				</a>
+			</div>
+		</div>
 		
-			
-
 		<div id="fh5co-menus" data-section="menu">
 			<div class="container">
 				<div class="row text-center fh5co-heading row-padded">
@@ -147,52 +106,6 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 						<p class="sub-heading to-animate">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
 					</div>
 				</div>
-				<!-- Cart -->
-				<div  data-section="menu">
-					<div class="container">
-					<h3>Order Details</h3>
-					<br>
-					<div class="table-responsive">
-						<table class="table table-bordered">
-							<tr>
-								<th width="40%">Item Name</th>
-								<th width="10%">Quantity</th>
-								<th width="20%">Price</th>
-								<th width="15%">Total</th>
-								<th width="5%">Action</th>
-							</tr>
-							<?php
-							if(!empty($_SESSION["shopping_cart"]))
-							{
-								$total = 0;
-								foreach($_SESSION["shopping_cart"] as $keys => $values)
-								{
-							?>
-							<tr>
-								<td><?php echo $values["item_name"]; ?></td>
-								<td><?php echo $values["item_quantity"]; ?></td>
-								<td>$ <?php echo $values["item_price"]; ?></td>
-								<td>$ <?php echo number_format($values["item_quantity"] * $values["item_price"], 2);?></td>
-								<td><a href="shopping.php?action=delete&id=<?php echo $values["item_id"]; ?>"><span class="text-danger">Remove</span></a></td>
-							</tr>
-							<?php
-									$total = $total + ($values["item_quantity"] * $values["item_price"]);
-								}
-							?>
-							<tr>
-								<td colspan="3" align="right">Total</td>
-								<td align="right">$ <?php echo number_format($total, 2); ?></td>
-								<td></td>
-							</tr>
-							<?php
-							}
-							?>
-						</table>
-						<a type="button" href="./checkout.php" class="btn btn-primary btn-lg ">Check out</a>
-					</div>
-				</div>
-				<br>
-				<br>
 				<div class="row row-padded">
 					<div class="col-md-6">
 						<div class="fh5co-food-menu to-animate-2">
@@ -209,7 +122,7 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
                                     <li>
                                             <div class="fh5co-food-desc">
                                                 <figure>
-                                                    <img src="images/res_img_5.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
+                                                    <img src="../images/res_img_5.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
                                                 </figure>
                                                 <div>
                                                     <h3><?php echo $row["name"]; ?></h3>
@@ -222,9 +135,7 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
                                                             <input type="hidden" name="hidden_name" value="<?php echo $row["name"]; ?>" />
                                                             <input type="hidden" name="hidden_price" value="<?php echo $row["price"]; ?>" />
                                                             <input type="hidden" name="hidden_id" value="<?php echo $row["id"]; ?>" />
-                                                            <input type="number" name="quantity" min="1" max="10" step="1" class="form-control add-to-cart" placeholder="Count" required>
                                                         </div>
-                                                        <button type="submit" name="add_to_cart" class="btn btn-warning add-to-cart-button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Cart</button>
                                                     </form> 
                                                 </div>
                                                     
@@ -248,7 +159,7 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 								<li>
 									<div class="fh5co-food-desc">
 										<figure>
-											<img src="images/res_img_3.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
+											<img src="../images/res_img_3.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
 										</figure>
 										<div>
 											<h3>Beef Steak</h3>
@@ -262,7 +173,7 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 								<li>
 									<div class="fh5co-food-desc">
 										<figure>
-											<img src="images/res_img_4.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
+											<img src="../images/res_img_4.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
 										</figure>
 										<div>
 											<h3>Tomato with Chicken</h3>
@@ -276,7 +187,7 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 								<li>
 									<div class="fh5co-food-desc">
 										<figure>
-											<img src="images/res_img_2.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
+											<img src="../images/res_img_2.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
 										</figure>
 										<div>
 											<h3>Sausages from Italy</h3>
@@ -290,7 +201,7 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 								<li>
 									<div class="fh5co-food-desc">
 										<figure>
-											<img src="images/res_img_8.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
+											<img src="../images/res_img_8.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
 										</figure>
 										<div>
 											<h3>Beef Grilled</h3>
@@ -311,7 +222,7 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 								<li>
 									<div class="fh5co-food-desc">
 										<figure>
-											<img src="images/res_img_5.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
+											<img src="../images/res_img_5.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
 										</figure>
 										<div>
 											<h3>Pineapple Juice</h3>
@@ -325,7 +236,7 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 								<li>
 									<div class="fh5co-food-desc">
 										<figure>
-											<img src="images/res_img_6.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
+											<img src="../images/res_img_6.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
 										</figure>
 										<div>
 											<h3>Green Juice</h3>
@@ -339,7 +250,7 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 								<li>
 									<div class="fh5co-food-desc">
 										<figure>
-											<img src="images/res_img_7.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
+											<img src="../images/res_img_7.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
 										</figure>
 										<div>
 											<h3>Soft Drinks</h3>
@@ -353,7 +264,7 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 								<li>
 									<div class="fh5co-food-desc">
 										<figure>
-											<img src="images/res_img_5.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
+											<img src="../images/res_img_5.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
 										</figure>
 										<div>
 											<h3>Carlo Rosee Drinks</h3>
@@ -374,7 +285,7 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 								<li>
 									<div class="fh5co-food-desc">
 										<figure>
-											<img src="images/res_img_3.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
+											<img src="../images/res_img_3.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
 										</figure>
 										<div>
 											<h3>Beef Steak</h3>
@@ -388,7 +299,7 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 								<li>
 									<div class="fh5co-food-desc">
 										<figure>
-											<img src="images/res_img_4.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
+											<img src="../images/res_img_4.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
 										</figure>
 										<div>
 											<h3>Tomato with Chicken</h3>
@@ -402,7 +313,7 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 								<li>
 									<div class="fh5co-food-desc">
 										<figure>
-											<img src="images/res_img_2.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
+											<img src="../images/res_img_2.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
 										</figure>
 										<div>
 											<h3>Sausages from Italy</h3>
@@ -416,7 +327,7 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 								<li>
 									<div class="fh5co-food-desc">
 										<figure>
-											<img src="images/res_img_8.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
+											<img src="../images/res_img_8.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
 										</figure>
 										<div>
 											<h3>Beef Grilled</h3>
@@ -463,28 +374,28 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 	</div>
 	
 	<!-- jQuery -->
-	<script src="js/jquery.min.js"></script>
+	<script src="../js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
-	<script src="js/jquery.easing.1.3.js"></script>
+	<script src="../js/jquery.easing.1.3.js"></script>
 	<!-- Bootstrap -->
-	<script src="js/bootstrap.min.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
 	<!-- Bootstrap DateTimePicker -->
-	<script src="js/moment.js"></script>
-	<script src="js/bootstrap-datetimepicker.min.js"></script>
+	<script src="../js/moment.js"></script>
+	<script src="../js/bootstrap-datetimepicker.min.js"></script>
 	<!-- Waypoints -->
-	<script src="js/jquery.waypoints.min.js"></script>
+	<script src="../js/jquery.waypoints.min.js"></script>
 	<!-- Stellar Parallax -->
-	<script src="js/jquery.stellar.min.js"></script>
+	<script src="../js/jquery.stellar.min.js"></script>
 
 	<!-- Flexslider -->
-	<script src="js/jquery.flexslider-min.js"></script>
+	<script src="../js/jquery.flexslider-min.js"></script>
 	<script>
 		$(function () {
 	       $('#date').datetimepicker();
 	   });
 	</script>
 	<!-- Main JS -->
-	<script src="js/main.js"></script>
+	<script src="../js/main.js"></script>
 
 	</body>
 </html>

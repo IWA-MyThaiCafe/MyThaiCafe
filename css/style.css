@@ -1356,6 +1356,24 @@ p {
 
 /*# sourceMappingURL=style.css.map */
 
+.fh5co-nav-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 9999;
+  display: block;
+  margin: 0 auto;
+  display: none;
+  border-bottom: none !important;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 15px 10px 15px 10px;
+  cursor: pointer;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+  /* height: 4rem; */
+}
 
 .centered { 
   margin: auto; 
@@ -1365,7 +1383,9 @@ p {
 .add-to-cart{
   height:3.5rem;
   font-size: 1.20rem;
-  width: 10rem;
+  width: 6rem !important;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
 }
 
 .add-to-cart-button {
@@ -1378,7 +1398,38 @@ p {
   border: none;
   color: white;
 }
+
+.form-group-1 label {
+  font-size: 1.25rem;
+}
+
+.form-group-1 {
+
+}
+
+.custom-form-control {
+  padding: 0rem 1rem !important;
+  height: 3.5rem !important;
+  font-size: 1.25rem !important;
+  margin-bottom: 1.25rem;
+}
 /* 
 .item-quantity {
   padding-left: 2rem;
 } */
+
+.fh5co-sayings-s-menu{
+  background: #5e493a;
+  font-size: 1.40rem;
+  color: #fff;
+  padding: 0.10em;
+}
+ 
+.fh5co-menu-s-2 a {
+  padding: 0.25rem 1rem 0.25rem 1rem;
+  color: #fff;
+}
+
+.fh5co-menu-s-2 {
+  text-align: right;
+}
