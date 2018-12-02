@@ -13,7 +13,7 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>My Thai Cafe</title>
+	<title>Menu | My Thai Cafe</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
@@ -83,12 +83,13 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 		</div>
 		<div class="fh5co-sayings-s-menu">
 			<div class="fh5co-menu-s-2">
-				<a href="../index.php" data-nav-section="events">Menu</a>
-				<a href="../index.php" data-nav-section="menu">Orders</a>
-				<a href="../index.php" data-nav-section="menu">
+				<a href="./index.php" data-nav-section="home">Home</a>
+				<a href="./menu.php" data-nav-section="events">Menu</a>
+				<a href="./orders.php" data-nav-section="menu">Orders</a>
+				<a href="./profile.php" data-nav-section="menu">
 				<?php 
-				 	if(isset($_SESSION['firstname'])) {
-						echo $_SESSION['firstname'];
+				 	if(isset($_SESSION['firstName'])) {
+						echo $_SESSION['firstName'];
 					}
 					 else{
 						 echo "Guest";
@@ -125,21 +126,9 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
                                                     <img src="../images/res_img_5.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
                                                 </figure>
                                                 <div>
-                                                    <h3><?php echo $row["name"]; ?></h3>
+                                                    <h3><a href="edit.php?code=<?php echo $row["id"]; ?>"><?php echo $row["name"]; ?></a></h3>
                                                     <p><?php echo $row["description"]; ?></p>
-                                                </div>    
-                                                <div class="row item-quantity">
-                                                <div class="col-md-12">
-                                                    <form class="form-inline" method="post" action="shopping.php?action=add&id=<?php echo $row["id"];?>" >
-                                                        <div class="form-group">
-                                                            <input type="hidden" name="hidden_name" value="<?php echo $row["name"]; ?>" />
-                                                            <input type="hidden" name="hidden_price" value="<?php echo $row["price"]; ?>" />
-                                                            <input type="hidden" name="hidden_id" value="<?php echo $row["id"]; ?>" />
-                                                        </div>
-                                                    </form> 
-                                                </div>
-                                                    
-                                                </div>  
+                                                </div>     
                                             </div>
                                             <div class="fh5co-food-pricing">
                                                 $ <?php echo $row["price"]; ?>
