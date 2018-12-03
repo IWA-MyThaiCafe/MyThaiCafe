@@ -5,6 +5,11 @@ session_start();
 if(isset($_SESSION['UserID'])){
 	echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION['id']) . "' );</script>";
 	$user_id = $_SESSION['UserID'];
+}
+
+if(isset($_SESSION['UserID'])){
+	echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION['id']) . "' );</script>";
+	$user_id = $_SESSION['UserID'];
 } else {
 	header('login.php');
 }
