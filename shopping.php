@@ -136,8 +136,6 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 				
 			</div>
 		</div>
-		
-			
 
 		<div id="fh5co-menus" data-section="menu">
 			<div class="container">

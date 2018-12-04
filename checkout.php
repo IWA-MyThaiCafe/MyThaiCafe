@@ -42,6 +42,80 @@ if(isset($_POST["add_to_cart"]))
 	}
 }
 
+if(isset($_POST["check_out"]))
+{
+	echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_cart"]) . "' );</script>";  
+	// TODO: CHeck whether user is logged in or not
+	// GUEST CHECKOUT - client_id = 1a1a1a1a1a
+	// GUEST CHECKOUT - address_id = generate uuid
+	
+	$order_id = uniqid();
+	$order = json_encode($_SESSION["shopping_cart"]);
+	// Logged in User checkout
+	if(isset($_SESSION["shopping_cart"])) {
+		$_SESSION['UserID'] = 'hello';
+		$client_id = $_SESSION['UserID'];
+		$address_id = uniqid();
+		echo "<script>console.log( 'Guest Check Out 1' );</script>";
+		echo "<script>console.log( 'Success Debug Objects: " . json_encode($_SESSION['UserID']) . "' );</script>";
+		
+		//  TODO: Get from database
+		$firstname = mysqli_real_escape_string($db,$_POST['firstname']); 
+		$lastname = mysqli_real_escape_string($db,$_POST['lastname']); 
+		$middlename = mysqli_real_escape_string($db,$_POST['middlename']); 
+
+		$street1 = mysqli_real_escape_string($db,$_POST['street1']); 
+		$street2 = mysqli_real_escape_string($db,$_POST['street2']); 
+		$city = mysqli_real_escape_string($db,$_POST['city']); 
+		$zip = mysqli_real_escape_string($db,$_POST['zip']); 
+		$state = mysqli_real_escape_string($db,$_POST['state']);
+		$country = mysqli_real_escape_string($db,$_POST['country']);
+		$email = mysqli_real_escape_string($db,$_POST['email']);
+		$mobile = mysqli_real_escape_string($db,$_POST['mobile']);
+
+		$now = new DateTime();
+		$date = $now->format('Y-m-d H:i:s');
+	} else {
+		$client_id = '1a1a1a1a1a';
+		$address_id = uniqid();
+
+		echo "<script>console.log( 'Guest Check Out' );</script>";
+
+		//  TODO: Get from database
+		$firstname = mysqli_real_escape_string($db,$_POST['firstname']); 
+		$lastname = mysqli_real_escape_string($db,$_POST['lastname']); 
+		$middlename = mysqli_real_escape_string($db,$_POST['middlename']); 
+		
+		$street1 = mysqli_real_escape_string($db,$_POST['street1']); 
+		$street2 = mysqli_real_escape_string($db,$_POST['street2']); 
+		$city = mysqli_real_escape_string($db,$_POST['city']); 
+		$state = mysqli_real_escape_string($db,$_POST['state']);
+		$country = mysqli_real_escape_string($db,$_POST['country']);
+		$zip = mysqli_real_escape_string($db,$_POST['zip']); 
+		$email = mysqli_real_escape_string($db,$_POST['email']);
+		$mobile = mysqli_real_escape_string($db,$_POST['mobile']);
+
+		$now = new DateTime();
+		$date = $now->format('Y-m-d H:i:s');
+	}
+
+	// $sqlInsert="INSERT INTO orders (order_id,customer_id,address_id,order,created_date,street1,street2,city,state,country,zip,email,mobile) values('".$order_id."','".$client_id."','".$address_id."','".$order."','".$date."','".$street1."','".$street2."','".$city."','".$state."','".$country."','".$zip."','".$email."','".$mobile."')";
+	$sqlInsert="INSERT INTO orders values('".$order_id."','".$client_id."','".$address_id."','".$order."','".$date."','".$street1."','".$street2."','".$city."','".$state."','".$country."','".$zip."','".$email."','".$mobile."')";
+
+
+	if (mysqli_query($db, $sqlInsert))
+	{
+		echo "<script>console.log( 'Success Debug Objects: " . json_encode($_POST) . "' );</script>";
+		unset($_SESSION["shopping_cart"]);
+		header("location: index.php");
+	}
+	else{
+			echo '<script type="text/javascript">alert("Check out failed. Please try again!"); </script>';
+			$message = "Check Out Failed! Please try again";
+	}
+}
+
+
 if(isset($_GET["action"]))
 {
 	if($_GET["action"] == "delete")
@@ -58,7 +132,7 @@ if(isset($_GET["action"]))
 	}
 }
 
-echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_cart"]) . "' );</script>";            
+         
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -138,7 +212,6 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 				</div>
 			</div>
 		</div>
-
 		<div id="fh5co-contact" data-section="Order">
 			<div class="container ">
 				<div class="row text-center fh5co-heading row-padded">
@@ -187,7 +260,6 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 							}
 							?>
                         </table>
-                            
                         <br><br>
                         <h1>
                             Delivery Address
@@ -200,16 +272,44 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
                                     <input type="text" class="form-control custom-form-control" name="firstname" id="firstname" placeholder="John">
                                 </div>
                                 <div class="form-group-1">
-                                    <label for="firstname">Last Name</label>
+                                    <label for="lastname">Last Name</label>
                                     <input type="text" class="form-control custom-form-control" name="lastname" id="lastname" placeholder="Carter">
                                 </div>
                                 <div class="form-group-1">
-                                    <label for="firstname">Middle Name</label>
+                                    <label for="middlename">Middle Name</label>
                                     <input type="text" class="form-control custom-form-control" name="middlename" id="middlename" placeholder="Hinkle">
                                 </div>
                                 <div class="form-group-1">
-                                    <label for="firstname">Shipping Address</label>
-                                    <input type="text" class="form-control custom-form-control" name="address1" id="address1" placeholder="Address">
+                                    <label for="address1">Address Line 1</label>
+                                    <input type="text" class="form-control custom-form-control" name="street1" id="address1" placeholder="Address Line 1" required>
+                                </div>
+                                <div class="form-group-1">
+                                    <label for="address2">Address Line 2</label>
+                                    <input type="text" class="form-control custom-form-control" name="street2" id="address2" placeholder="Address Line 2">
+								</div>
+								<div class="form-group-1">
+                                    <label for="city">City</label>
+                                    <input type="text" class="form-control custom-form-control" name="city" id="city" placeholder="Bloomington" required>
+								</div>
+								<div class="form-group-1">
+                                    <label for="state">State</label>
+                                    <input type="text" placeholder="Indiana" class="form-control custom-form-control" name="state" id="state" required>
+								</div>
+								<div class="form-group-1">
+                                    <label for="country">Country</label>
+                                    <input type="text"  placeholder="USA" class="form-control custom-form-control" name="country" id="country" required>
+								</div>
+								<div class="form-group-1">
+                                    <label for="email">Email</label>
+                                    <input type="email" placeholder="samuelj.jack@gmail.com" class="form-control custom-form-control" name="email" id="email" placeholder="Address Line 1" required>
+                                </div>
+                                <div class="form-group-1">
+                                    <label for="number">Mobile</label>
+                                    <input type="number" placeholder="812 369 3213" class="form-control custom-form-control" name="mobile" id="mobile" placeholder="Address Line 2" required>
+								</div>
+								<div class="form-group-1">
+                                    <label for="zip">Zip</label>
+                                    <input type="number" placeholder="47408" class="form-control custom-form-control" value="47408" name="zip" id="zip" required>
                                 </div>
                             </div>
                             <div class="col-md-5">
@@ -240,11 +340,11 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 								</div>
 								</div>
                             </div>
-                        </div>
-                            
+						</div>
+							<a type="button" name="cont_shop" href="./shopping.php" class="btn btn-primary btn-lg ">Continue Shopping</a>
+							<button type="submit" name="check_out" class="btn btn-primary btn-lg ">Check out</button>
                         </form>
-						<a type="button" href="./shopping.php" class="btn btn-primary btn-lg ">Continue Shopping</a>
-						<a type="button" href="./checkout.php" class="btn btn-primary btn-lg ">Check out</a>
+						
 					</div>
 				</div>
 		</div>
