@@ -1403,10 +1403,6 @@ p {
   font-size: 1.25rem;
 }
 
-.form-group-1 {
-
-}
-
 .custom-form-control {
   padding: 0rem 1rem !important;
   height: 3.5rem !important;
@@ -1415,7 +1411,7 @@ p {
 }
 /* 
 .item-quantity {
-  padding-left: 2rem;
+  padding-left: 2rem; 
 } */
 
 .fh5co-sayings-s-menu{
@@ -1432,4 +1428,8 @@ p {
 
 .fh5co-menu-s-2 {
   text-align: right;
+}
+
+.address {
+  margin-bottom: 0.15rem;
 }

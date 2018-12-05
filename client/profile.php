@@ -1,6 +1,17 @@
 <?php
 session_start();
-// ob_start();
+if(isset($_SESSION['UserType'])) {
+	if($_SESSION['UserType'] != "client") {
+		header("location: ../login.php");
+	}
+} else {
+	header("location: ../login.php");
+}
+
+if(isset($_SESSION['UserID'])){
+	echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION['id']) . "' );</script>";
+	$user_id = $_SESSION['UserID'];
+}
 
 if(isset($_SESSION['UserID'])){
 	echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION['id']) . "' );</script>";
@@ -159,17 +170,20 @@ if(isset($_SESSION['UserID'])){
 		</div>
 		<div class="fh5co-sayings-s-menu">
 			<div class="fh5co-menu-s-2">
-				<a href="./orders.php" data-nav-section="events">Orders</a>
-				<a href="./menu.php" data-nav-section="menu">Menu</a>
-				<a href="./profile.php" ><?php 
+				<a href="./index.php" data-nav-section="home">Home</a>
+				<a href="./menu.php" data-nav-section="events">Menu</a>
+				<a href="./orders.php" data-nav-section="menu">Orders</a>
+				<a href="./profile.php" data-nav-section="menu">
+				<?php 
 				 	if(isset($_SESSION['firstName'])) {
 						echo $_SESSION['firstName'];
 					}
 					 else{
 						 echo "Guest";
-                    }
+					 }
 				?>
 				</a>
+				<a href="../app/logout.php" data-nav-section="menu">Log Out</a>				
 			</div>
 		</div>
 
@@ -177,7 +191,7 @@ if(isset($_SESSION['UserID'])){
 			<div class="container ">
 				<div class="row text-center fh5co-heading row-padded">
 					<div class="col-md-8 col-md-offset-2">
-						<h2 class="heading to-animate">Register</h2>
+						<h2 class="heading to-animate">My Profile</h2>
 						<p class="sub-heading to-animate">Join the My Thai Cafe Family, to experince the best cuisines </p>
 					</div>
 				</div>
@@ -248,7 +262,7 @@ if(isset($_SESSION['UserID'])){
 		<div class="container">
 			<div class="row row-padded">
 				<div class="col-md-12 text-center">
-					<p class="to-animate">&copy; 2016 Foodee Free HTML5 Template. <br> Designed by <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a> Demo Images: <a href="http://pexels.com/" target="_blank">Pexels</a> <br> Tasty Icons Free <a href="http://handdrawngoods.com/store/tasty-icons-free-food-icons/" target="_blank">handdrawngoods</a>
+					<p class="to-animate">&copy; 2018 My Thai Cafe. <br> Bloomington, IN
 					</p>
 					<p class="text-center to-animate"><a href="#" class="js-gotop">Go To Top</a></p>
 				</div>

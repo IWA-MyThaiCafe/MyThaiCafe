@@ -1,6 +1,12 @@
 <?php
 session_start();
-// ob_start();
+if(isset($_SESSION['UserType'])) {
+	if($_SESSION['UserType'] != "admin") {
+		header("location: ../login.php");
+	}
+} else {
+	header("location: ../login.php");
+}
 
 if(isset($_SESSION['UserID'])){
 	echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION['id']) . "' );</script>";
@@ -177,6 +183,7 @@ if(isset($_SESSION['UserID'])){
 					 }
 				?>
 				</a>
+				<a href="../app/logout.php" data-nav-section="menu">Log Out</a>				
 			</div>
 		</div>
 
@@ -184,7 +191,7 @@ if(isset($_SESSION['UserID'])){
 			<div class="container ">
 				<div class="row text-center fh5co-heading row-padded">
 					<div class="col-md-8 col-md-offset-2">
-						<h2 class="heading to-animate">Register</h2>
+						<h2 class="heading to-animate">My Profile</h2>
 						<p class="sub-heading to-animate">Join the My Thai Cafe Family, to experince the best cuisines </p>
 					</div>
 				</div>

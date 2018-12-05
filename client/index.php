@@ -1,11 +1,15 @@
 <?php
 session_start();
-ob_start();
+// ob_start();
+
 if(isset($_SESSION['UserType'])) {
-	if($_SESSION['UserType'] != 'client'){
-		// header("location: ../login.php");
-	} 
-} 
+	if($_SESSION['UserType'] != "client") {
+		header("location: ../login.php");
+	}
+} else {
+	header("location: ../login.php");
+}
+
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -88,10 +92,10 @@ if(isset($_SESSION['UserType'])) {
 		
 		<div class="fh5co-sayings-s-menu">
 			<div class="fh5co-menu-s-2">
-				<a href="../index.php" data-nav-section="home">Home</a>
-				<a href="../index.php" data-nav-section="events">Menu</a>
-				<a href="../index.php" data-nav-section="menu">Orders</a>
-				<a href="../index.php" data-nav-section="menu">
+				<a href="./index.php" data-nav-section="home">Home</a>
+				<a href="../shopping.php" data-nav-section="events">Menu</a>
+				<a href="./orders.php" data-nav-section="menu">Orders</a>
+				<a href="./profile.php" data-nav-section="menu">
 				<?php 
 				 	if(isset($_SESSION['firstName'])) {
 						echo $_SESSION['firstName'];
@@ -101,8 +105,10 @@ if(isset($_SESSION['UserType'])) {
 					 }
 				?>
 				</a>
+				<a href="../app/logout.php" data-nav-section="menu">Log Out</a>				
 			</div>
 		</div>
+
 		<div id="fh5co-sayings">
 			<div class="container">
 				<div class="row to-animate">
@@ -146,13 +152,13 @@ if(isset($_SESSION['UserType'])) {
 		<div id="fh5co-about" data-section="about">
 			<div class="fh5co-2col fh5co-text fh5co-bg to-animate-2" style="background-image: url(../images/res_img_1.jpg)">
 			<h2 class="heading to-animate">ORDERS</h2>
-				<p class="to-animate"><span class="firstcharacter">M</span>anage your restaurant orders here. </p>
-				<p class="text-center to-animate"><a href="#" class="btn btn-primary btn-outline">View Order</a></p>
+				<p class="to-animate"><span class="firstcharacter">V</span>iew your restaurant orders here. </p>
+				<p class="text-center to-animate"><a href="./orders.php" class="btn btn-primary btn-outline">View Orders</a></p>
 				</div>
 			<div class="fh5co-2col fh5co-text">
 				<h2 class="heading to-animate">MENU</h2>
-				<p class="to-animate"><span class="firstcharacter">U</span>se this wizard to update menu and add featured dishes to be displayed on homepage.</p>
-				<p class="text-center to-animate"><a href="#" class="btn btn-primary btn-outline">Update Menu</a></p>
+				<p class="to-animate"><span class="firstcharacter">V</span>iew complete my thai cafe menu here</p>
+				<p class="text-center to-animate"><a href="../shopping.php" class="btn btn-primary btn-outline">Menu</a></p>
 			</div>
 		</div>
 

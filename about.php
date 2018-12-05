@@ -1,4 +1,7 @@
-
+<?php
+session_start();
+ob_start();
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -7,25 +10,10 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>foodee &mdash; 100% Free Fully Responsive HTML5 Template by FREEHTML5.co</title>
+	<title>My Thai Cafe</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
-	<meta name="author" content="FREEHTML5.CO" />
-
-  <!-- 
-	//////////////////////////////////////////////////////
-
-	FREE HTML5 TEMPLATE 
-	DESIGNED & DEVELOPED by FREEHTML5.CO
-		
-	Website: 		http://freehtml5.co/
-	Email: 			info@freehtml5.co
-	Twitter: 		http://twitter.com/fh5co
-	Facebook: 		https://www.facebook.com/fh5co
-
-	//////////////////////////////////////////////////////
-	 -->
 
   	<!-- Facebook and Twitter integration -->
 	<meta property="og:title" content=""/>
@@ -70,95 +58,85 @@
 	<body>
 
 	<div id="fh5co-container">
-		<div id="fh5co-home" class="js-fullheight" data-section="home">
-
-			<div class="flexslider">
 				
-				<div class="fh5co-overlay"></div>
-				<div class="fh5co-text">
-					<div class="container">
-						<div class="row">
-							<h1 class="to-animate">My Thai Cafe</h1>
-							<h2 class="to-animate">Member Login</a></h2>
-						</div>
-					</div>
-				</div>
-			  	<ul class="slides">
-			   	<li style="background-image: url(images/slide_1.jpg);" data-stellar-background-ratio="0.5"></li>
-			   	<li style="background-image: url(images/slide_2.jpg);" data-stellar-background-ratio="0.5"></li>
-			   	<li style="background-image: url(images/slide_3.jpg);" data-stellar-background-ratio="0.5"></li>
-			  	</ul>
-
-			</div>
-			
-		</div>
-		
 		<div class="js-sticky">
 			<div class="fh5co-main-nav">
 				<div class="container-fluid">
 					<div class="fh5co-menu-1">
-						<a href="#" data-nav-section="home">Home</a>
-						<a href="#" data-nav-section="about">About</a>
-						<a href="#" data-nav-section="features">Features</a>
+						<a href="./index.php" class="external" data-nav-section="home">Home</a>
+						<a href="./about.php" class="external" data-nav-section="about">About</a>
 					</div>
 					<div class="fh5co-logo">
-						<a href="index.html">foodee</a>
+						<a href="index.html">My Thai Cafe</a>
 					</div>
 					<div class="fh5co-menu-2">
-						<a href="#" data-nav-section="menu">Menu</a>
-						<a href="#" data-nav-section="events">Events</a>
-						<a href="#" data-nav-section="reservation">Reservation</a>
+						<a href="./shopping.php" data-nav-section="menu">Menu</a>
+						<a href="http://ella.ils.indiana.edu/~tsopher/test/contact.php" class="external" data-nav-section="contact">Contact</a>
 					</div>
 				</div>
 				
 			</div>
 		</div>
 
-		
-		<div id="fh5co-contact" data-section="reservation">
-			<div class="container">
-				<div class="row text-center fh5co-heading row-padded">
-					<div class="col-md-8 col-md-offset-2">
-						<h2 class="heading to-animate">Member Login</h2>
-						<p class="sub-heading to-animate">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-					</div>
-				</div>
-				<div class="row">
-					
-					<div class="col-md-6 to-animate-2" align="center">
-						<h3>Login</h3>
-						<div class="form-group ">
-							<label for="name" class="sr-only">Name</label>
-							<input id="name" class="form-control" placeholder="Name" type="text">
-						</div>
-						<div class="form-group ">
-							<label for="email" class="sr-only">Email</label>
-							<input id="email" class="form-control" placeholder="Email" type="email">
-						</div>
-												
-						<div class="form-group " align="left" style="float:left">
-							<input class="btn btn-primary" value="Login" type="submit">
-						</div>
-
-						<div class="form-group " align="right">
-							<input class="btn btn-primary" value="Register" type="submit">
-						</div>
-						</div>
-				</div>
+		<div id="fh5co-contact" data-section="about">
+			<div class="row text-center fh5co-heading row-padded">
+				<h2 class="heading to-animate">About Us</h2>					
 			</div>
 		</div>
 
-						<div class="row" align="center">
-							<h4>Forgot Password? <span>Click</span> <a href="http://freehtml5.co/" target="_blank">Here</a></h4>
-						</div>
+		<div id="fh5co-about" data-section="about">
+			<div class="fh5co-2col fh5co-bg to-animate-2" style="background-image: url(images/res_img_1.jpg)"></div>
+			<div class="fh5co-2col fh5co-text">
+				<p class="to-animate"><br><span class="firstcharacter">My Thai Cafe</span> is an authentic Thai restaurant that serves an excellent variety of delicious dishes for lunch and dinner. Our staff has more than 15 years of experience in the cooking and food preparation industry. Stop by today to let us prepare you some delicious Thai food. </p>
+				<p class="to-animate">Looking for a great and affordable dining experience in the Bloomington area? Then My Thai Cafe is the place for you! Each of our locations provide a unique Thai food experience that will leave you satisfied and coming back for more.</p>
+			</div>
+		</div>
 
-	</div>
+		<div id="fh5co-sayings">
+			<div class="container">
+				<div class="row to-animate">
+					<h2>See what others have to say!</h2>
+					<div class="flexslider">
+						<ul class="slides">
+							
+							<li>
+								<blockquote>
+									<p>&ldquo;This is my favorite Thai restaurant in town.&rdquo;</p>
+									<p class="quote-author">&mdash; Nathan Myhrvold</p>
+								</blockquote>
+							</li>
+							<li>
+								<blockquote>
+									<p>&ldquo;This was our favorite Thai restaurant in Bloomington!&rdquo;</p>
+									<p class="quote-author">&mdash; Ashim B. Spiro</p>
+								</blockquote>
+							</li>
+							<li>
+								<blockquote>
+									<p>&ldquo;Pak Kra Prow is to die for!!!!&rdquo;</p>
+									<p class="quote-author">&mdash; Julia C.</p>
+								</blockquote>
+							</li>
+							<li>
+								<blockquote>
+									<p>&ldquo;Highly recommend this Thai restaurant!&rdquo;</p>
+									<p class="quote-author">&mdash; Josh Billings</p>
+								</blockquote>
+							</li>
+							
+							
+						</ul>
+					</div>
+
+				</div>
+			</div>
+		</div>
 
 	<div id="fh5co-footer">
 		<div class="container">
 			<div class="row row-padded">
 				<div class="col-md-12 text-center">
-					<p class="to-animate">&copy; 2018 My Thai Cafe. <br> Bloomington, IN
+					<p class="to-animate">&copy; 2016 Foodee Free HTML5 Template. <br> Designed by <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a> Demo Images: <a href="http://pexels.com/" target="_blank">Pexels</a> <br> Tasty Icons Free <a href="http://handdrawngoods.com/store/tasty-icons-free-food-icons/" target="_blank">handdrawngoods</a>
 					</p>
 					<p class="text-center to-animate"><a href="#" class="js-gotop">Go To Top</a></p>
 				</div>
@@ -174,11 +152,6 @@
 			</div>
 		</div>
 	</div>
-
-
-	
-	
-	
 	
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>

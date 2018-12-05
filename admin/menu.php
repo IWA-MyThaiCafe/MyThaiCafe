@@ -1,10 +1,15 @@
 <?php 
-session_start();
-ob_start();
-include("../app/config.php");
-
-echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_cart"]) . "' );</script>";            
-?>
+	session_start();
+	// ob_start();
+	include("../app/config.php");
+	if(isset($_SESSION['UserType'])) {
+		if($_SESSION['UserType'] != "admin") {
+			header("location: ../login.php");
+		}
+	} else {
+		header("location: ../login.php");
+	}           
+	?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -60,7 +65,9 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 	</head>
 	<body>
 	<!-- Menu -->
-	<div id="fh5co-container">	
+	
+	<div id="fh5co-container">
+		
 		<div class="js-sticky">
 			<div class="fh5co-main-nav">
 				<div class="container-fluid">
@@ -81,6 +88,7 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 				
 			</div>
 		</div>
+		
 		<div class="fh5co-sayings-s-menu">
 			<div class="fh5co-menu-s-2">
 				<a href="./index.php" data-nav-section="home">Home</a>
@@ -96,16 +104,22 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 					 }
 				?>
 				</a>
+				<a href="../app/logout.php" data-nav-section="menu">Log Out</a>				
 			</div>
 		</div>
-		
-		<div id="fh5co-menus" data-section="menu">
+
+		<div id="fh5co-menus">
 			<div class="container">
 				<div class="row text-center fh5co-heading row-padded">
 					<div class="col-md-8 col-md-offset-2">
 						<h2 class="heading to-animate">Food Menu</h2>
 						<p class="sub-heading to-animate">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
 					</div>
+					<div class="row">
+			<div class="col-md-4 col-md-offset-4 text-center to-animate-2">
+					<p><a href="./additem.php" class="btn btn-primary btn-outline">Add New Item</a></p>
+				</div>
+			</div>
 				</div>
 				<div class="row row-padded">
 					<div class="col-md-6">
@@ -143,127 +157,69 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 					</div>
 					<div class="col-md-6">
 						<div class="fh5co-food-menu to-animate-2">
-							<h2 class="fh5co-dishes">Steak</h2>
+							<h2 class="fh5co-dishes">Entrees</h2>
 							<ul>
-								<li>
-									<div class="fh5co-food-desc">
-										<figure>
-											<img src="../images/res_img_3.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
-										</figure>
-										<div>
-											<h3>Beef Steak</h3>
-											<p>Far far away, behind the word mountains.</p>
-										</div>
-									</div>
-									<div class="fh5co-food-pricing">
-										$17.50
-									</div>
-								</li>
-								<li>
-									<div class="fh5co-food-desc">
-										<figure>
-											<img src="../images/res_img_4.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
-										</figure>
-										<div>
-											<h3>Tomato with Chicken</h3>
-											<p>Far far away, behind the word mountains.</p>
-										</div>
-									</div>
-									<div class="fh5co-food-pricing">
-										$7.99
-									</div>
-								</li>
-								<li>
-									<div class="fh5co-food-desc">
-										<figure>
-											<img src="../images/res_img_2.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
-										</figure>
-										<div>
-											<h3>Sausages from Italy</h3>
-											<p>Far far away, behind the word mountains.</p>
-										</div>
-									</div>
-									<div class="fh5co-food-pricing">
-										$12.99
-									</div>
-								</li>
-								<li>
-									<div class="fh5co-food-desc">
-										<figure>
-											<img src="../images/res_img_8.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
-										</figure>
-										<div>
-											<h3>Beef Grilled</h3>
-											<p>Far far away, behind the word mountains.</p>
-										</div>
-									</div>
-									<div class="fh5co-food-pricing">
-										$12.99
-									</div>
-								</li>
+                                <?php
+                                    $query = "SELECT * FROM menu WHERE category='entrees'";
+                                    $result = mysqli_query($db,$query);
+                                    if(mysqli_num_rows($result) > 0)
+                                    {
+                                        while($row = mysqli_fetch_array($result))
+                                        {
+                                ?>
+                                    <li>
+                                            <div class="fh5co-food-desc">
+                                                <figure>
+                                                    <img src="../images/res_img_5.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
+                                                </figure>
+                                                <div>
+                                                    <h3><a href="edit.php?code=<?php echo $row["id"]; ?>"><?php echo $row["name"]; ?></a></h3>
+                                                    <p><?php echo $row["description"]; ?></p>
+                                                </div>     
+                                            </div>
+                                            <div class="fh5co-food-pricing">
+                                                $ <?php echo $row["price"]; ?>
+                                            </div>
+                                    </li>
+                                <?php
+                                        }
+                                    }
+                                ?>
 							</ul>
 						</div>
 					</div>
+				</div>
+				<div class="row row-padded">
 					<div class="col-md-6">
 						<div class="fh5co-food-menu to-animate-2">
 							<h2 class="fh5co-drinks">Drinks</h2>
 							<ul>
-								<li>
-									<div class="fh5co-food-desc">
-										<figure>
-											<img src="../images/res_img_5.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
-										</figure>
-										<div>
-											<h3>Pineapple Juice</h3>
-											<p>Far far away, behind the word mountains.</p>
-										</div>
-									</div>
-									<div class="fh5co-food-pricing">
-										$17.50
-									</div>
-								</li>
-								<li>
-									<div class="fh5co-food-desc">
-										<figure>
-											<img src="../images/res_img_6.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
-										</figure>
-										<div>
-											<h3>Green Juice</h3>
-											<p>Far far away, behind the word mountains.</p>
-										</div>
-									</div>
-									<div class="fh5co-food-pricing">
-										$7.99
-									</div>
-								</li>
-								<li>
-									<div class="fh5co-food-desc">
-										<figure>
-											<img src="../images/res_img_7.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
-										</figure>
-										<div>
-											<h3>Soft Drinks</h3>
-											<p>Far far away, behind the word mountains.</p>
-										</div>
-									</div>
-									<div class="fh5co-food-pricing">
-										$12.99
-									</div>
-								</li>
-								<li>
-									<div class="fh5co-food-desc">
-										<figure>
-											<img src="../images/res_img_5.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
-										</figure>
-										<div>
-											<h3>Carlo Rosee Drinks</h3>
-											<p>Far far away, behind the word mountains.</p>
-										</div>
-									</div>
-									<div class="fh5co-food-pricing">
-										$12.99
-									</div>
-								</li>
+                                <?php
+                                    $query = "SELECT * FROM menu WHERE category='appetizers'";
+                                    $result = mysqli_query($db,$query);
+                                    if(mysqli_num_rows($result) > 0)
+                                    {
+                                        while($row = mysqli_fetch_array($result))
+                                        {
+                                ?>
+                                    <li>
+                                            <div class="fh5co-food-desc">
+                                                <figure>
+                                                    <img src="../images/res_img_5.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
+                                                </figure>
+                                                <div>
+                                                    <h3><a href="edit.php?code=<?php echo $row["id"]; ?>"><?php echo $row["name"]; ?></a></h3>
+                                                    <p><?php echo $row["description"]; ?></p>
+                                                </div>     
+                                            </div>
+                                            <div class="fh5co-food-pricing">
+                                                $ <?php echo $row["price"]; ?>
+                                            </div>
+                                    </li>
+                                <?php
+                                        }
+                                    }
+                                ?>
 							</ul>
 						</div>
 					</div>
@@ -271,71 +227,37 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 						<div class="fh5co-food-menu to-animate-2">
 							<h2 class="fh5co-dishes">Steak</h2>
 							<ul>
-								<li>
-									<div class="fh5co-food-desc">
-										<figure>
-											<img src="../images/res_img_3.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
-										</figure>
-										<div>
-											<h3>Beef Steak</h3>
-											<p>Far far away, behind the word mountains.</p>
-										</div>
-									</div>
-									<div class="fh5co-food-pricing">
-										$17.50
-									</div>
-								</li>
-								<li>
-									<div class="fh5co-food-desc">
-										<figure>
-											<img src="../images/res_img_4.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
-										</figure>
-										<div>
-											<h3>Tomato with Chicken</h3>
-											<p>Far far away, behind the word mountains.</p>
-										</div>
-									</div>
-									<div class="fh5co-food-pricing">
-										$7.99
-									</div>
-								</li>
-								<li>
-									<div class="fh5co-food-desc">
-										<figure>
-											<img src="../images/res_img_2.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
-										</figure>
-										<div>
-											<h3>Sausages from Italy</h3>
-											<p>Far far away, behind the word mountains.</p>
-										</div>
-									</div>
-									<div class="fh5co-food-pricing">
-										$12.99
-									</div>
-								</li>
-								<li>
-									<div class="fh5co-food-desc">
-										<figure>
-											<img src="../images/res_img_8.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
-										</figure>
-										<div>
-											<h3>Beef Grilled</h3>
-											<p>Far far away, behind the word mountains.</p>
-										</div>
-									</div>
-									<div class="fh5co-food-pricing">
-										$12.99
-									</div>
-								</li>
+                                <?php
+                                    $query = "SELECT * FROM menu WHERE category='appetizers'";
+                                    $result = mysqli_query($db,$query);
+                                    if(mysqli_num_rows($result) > 0)
+                                    {
+                                        while($row = mysqli_fetch_array($result))
+                                        {
+                                ?>
+                                    <li>
+                                            <div class="fh5co-food-desc">
+                                                <figure>
+                                                    <img src="../images/res_img_5.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
+                                                </figure>
+                                                <div>
+                                                    <h3><a href="edit.php?code=<?php echo $row["id"]; ?>"><?php echo $row["name"]; ?></a></h3>
+                                                    <p><?php echo $row["description"]; ?></p>
+                                                </div>     
+                                            </div>
+                                            <div class="fh5co-food-pricing">
+                                                $ <?php echo $row["price"]; ?>
+                                            </div>
+                                    </li>
+                                <?php
+                                        }
+                                    }
+                                ?>
 							</ul>
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-4 col-md-offset-4 text-center to-animate-2">
-						<p><a href="#" class="btn btn-primary btn-outline">More Food Menu</a></p>
-					</div>
-				</div>
+				
 			</div>
 		</div>	
 	</div>

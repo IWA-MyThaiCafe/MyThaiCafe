@@ -1,5 +1,12 @@
 <?php
 session_start();
+if(isset($_SESSION['UserType'])) {
+	if($_SESSION['UserType'] != "admin") {
+		header("location: ../login.php");
+	}
+} else {
+	header("location: ../login.php");
+}
 // ob_start();
 ?>
 <!DOCTYPE html>
@@ -10,7 +17,7 @@ session_start();
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Register | My thai Cafe</title>
+	<title>Add New Item | My thai Cafe</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="My thai cafe" />
 	<meta name="keywords" content="My thai cafe, bloomington, thai, indiana university,thai, thai cuisine" />
@@ -133,6 +140,7 @@ session_start();
 					 }
 				?>
 				</a>
+				<a href="../app/logout.php" data-nav-section="menu">Log Out</a>				
 			</div>
 		</div>
 

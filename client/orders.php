@@ -1,8 +1,8 @@
 <?php
 	session_start();
-	// ob_start();
+	include("../app/config.php");
 	if(isset($_SESSION['UserType'])) {
-		if($_SESSION['UserType'] != "admin") {
+		if($_SESSION['UserType'] != "client") {
 			header("location: ../login.php");
 		}
 	} else {
@@ -115,7 +115,7 @@
         $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
         $count = mysqli_num_rows($result);
         echo "<script>console.log( 'Debug Objects: " . json_encode($row) . "' );</script>";
-        echo "<script>console.log( 'Debug Objects: " . json_encode($row["description"]) . "' );</script>";
+      
 
         if($count == 1) {
             $itemid  = $row["id"];
@@ -151,7 +151,8 @@
 					</div>
 				</div>
 			</div>
-        </div>
+		</div>
+		
         <div class="fh5co-sayings-s-menu">
 			<div class="fh5co-menu-s-2">
 				<a href="./index.php" data-nav-section="home">Home</a>
@@ -171,64 +172,79 @@
 			</div>
 		</div>
 
-		<div id="fh5co-contact" data-section="reservation">
-			<div class="container">
-				<div class="row text-center fh5co-heading row-padded">
-					<div class="col-md-8 col-md-offset-2">
-						<h2 class="heading to-animate">Edit Item</h2>
-						<p class="sub-heading to-animate">Edit menu details of <strong>My Thai Cafe</strong> menu.</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6 to-animate-2">
-							<?php
-								echo $message
-							?>
-                        <form method="post" action="../admin/edit.php?code=<?php echo htmlentities($id); ?>">
-                            <input type="hidden"  name="id" value=<?php echo htmlentities($id); ?>>
-							<div class="form-group">
-								<label for="code" class="sr-only">Item Code</label>
-								<input id="code" name="code" class="form-control" placeholder="Item Code (eg. A1)" value="<?php echo htmlentities($itemcode); ?>" type="text">
-							</div>
-							<div class="form-group ">
-								<label for="name" class="sr-only">Name</label>
-								<input id="name" name="name" class="form-control" placeholder="Item Name" value="<?php echo htmlentities($itemname); ?>" type="text">
-							</div>
-							<div class="form-group">
-								<label for="category" class="sr-only">category</label>
-								<select name="category" class="form-control" id="occation">
-								<option value="appetizers" <?=$category == 'appetizers' ? ' selected="selected"' : '';?>>Appetizers</option>
-								<option value="yum" <?=$category == 'yum' ? ' selected="selected"' : '';?>>Yum</option>
-								<option value="soups" <?=$category == 'soups' ? ' selected="selected"' : '';?>>Soups</option>
-								<option value="friedrice" <?=$category == 'friedrice' ? ' selected="selected"' : '';?>>Fried Rice</option>
-								<option value="entrees" <?=$category == 'entrees' ? ' selected="selected"' : '';?>>Entrees</option>
-								<option value="drinks" <?=$category == 'drinks' ? ' selected="selected"' : '';?>>Drinks</option>
-								<option value="desert" <?=$category == 'desert' ? ' selected="selected"' : '';?>>Desert</option>
-								</select>
-							</div>
-							<div class="form-group">
-								<label for="spicy" class="sr-only">Spice</label>
-								<select name="spice" class="form-control" id="occation">
-								<option value="1" <?=$spice == '1' ? ' selected="selected"' : '';?>>Low</option>
-								<option value="2" <?=$spice == '2' ? ' selected="selected"' : '';?>>Medium</option>
-								<option value="3" <?=$spice == '3' ? ' selected="selected"' : '';?>>High</option>
-								<option value="4" <?=$spice == '4' ? ' selected="selected"' : '';?>>Thai Spicy</option>
-								</select>
-							</div>
-							<div class="form-group ">
-								<label for="price" class="sr-only">Price</label>
-								<input id="price" name="price" step="0.01" class="form-control" value="<?php echo htmlentities($price); ?>" placeholder="Price" type="number">
-							</div>
-							<div class="form-group ">
-								<label for="description" class="sr-only">Description</label>
-								<textarea name="description" id="description" cols="40" rows="5"><?php echo htmlentities($description); ?></textarea>
-							</div>
-							<button type="submit" class="btn btn-primary">UPDATE ITEM</button>
-						</form>
-						</div>
+		
+
+	<div id="fh5co-contact" data-section="reservation">
+			<div class="row text-center fh5co-heading row-padded">
+				<div class="col-md-8 col-md-offset-2">
+					<h2 class="heading to-animate">Order Details</h2>
+					<p class="sub-heading to-animate">All Orders till date</p>
 				</div>
 			</div>
-		</div>
+			<?php 
+				echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION['UserID']) . "' );</script>";
+				$all_order = 'select * from orders where customer_id="'.$_SESSION['UserID'].'" order by created_date desc';
+				$result = mysqli_query($db,$all_order);
+				if(mysqli_num_rows($result) > 0)
+				{
+					while($row = mysqli_fetch_array($result))
+					{
+						$order = json_decode($row['order'],true);
+						echo "<script>console.log( 'Debug Objects: " . json_encode($row["firstname"]) . "' );</script>";
+			?>
+				<div class="container">
+					<h3>Delivery Details</h3>
+						<p class="address"><strong>Date :</strong> <?php echo $row["created_date"] ?></p>
+						<br>
+						<p class="address"><strong><?php echo $row["firstname"].' '.$row["lastname"] ?></strong></p>
+						<p class="address"><?php echo $row["street1"].','.$row["street2"] ?></p>
+						<p class="address"><?php echo $row["city"] ?></p>
+						<p class="address"><?php echo $row["country"].'-'.$row["zip"] ?></p>
+					<br>
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<tr>
+								<th width="40%">Item Name</th>
+								<th width="10%">Quantity</th>
+								<th width="20%">Price</th>
+								<th width="15%">Total</th>
+							</tr>
+							<?php
+							
+							if(!empty($order))
+							{
+								$total = 0;
+								foreach($order as $keys => $values)
+								{
+							?>
+							<tr>
+								<td><?php echo $values["item_name"]; ?></td>
+								<td><?php echo $values["item_quantity"]; ?></td>
+								<td>$ <?php echo $values["item_price"]; ?></td>
+								<td>$ <?php echo number_format($values["item_quantity"] * $values["item_price"], 2);?></td>
+				
+							</tr>
+							<?php
+									$total = $total + ($values["item_quantity"] * $values["item_price"]);
+								}
+							?>
+							<tr>
+								<td colspan="3" align="right">Total</td>
+								<td align="right">$ <?php echo number_format($total, 2); ?></td>
+							</tr>
+							<?php
+							}
+							?>
+						</table>
+						<!-- <a type="button" href="./checkout.php" class="btn btn-primary btn-lg ">Check out</a> -->
+					</div>
+				</div>
+				<br>
+				<hr>
+			<?php 
+					}
+				}
+			?>
 	</div>
 
 	<div id="fh5co-footer">

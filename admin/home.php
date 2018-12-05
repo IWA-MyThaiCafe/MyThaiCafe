@@ -1,6 +1,13 @@
 <?php
-session_start();
-// ob_start();
+	session_start();
+	// ob_start();
+	if(isset($_SESSION['UserType'])) {
+		if($_SESSION['UserType'] != "admin") {
+			header("location: ../login.php");
+		}
+	} else {
+		header("location: ../login.php");
+	}
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->

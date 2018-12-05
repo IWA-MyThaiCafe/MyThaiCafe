@@ -1,11 +1,12 @@
 <?php
-session_start();
-ob_start();
-if(isset($_SESSION['UserType'])) {
-	if($_SESSION['UserType'] != 'client'){
-		// header("location: ../login.php");
-	} 
-} 
+	session_start();
+	if(isset($_SESSION['UserType'])) {
+		if($_SESSION['UserType'] != "admin") {
+			header("location: ../login.php");
+		}
+	} else {
+		header("location: ../login.php");
+	}
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -101,6 +102,7 @@ if(isset($_SESSION['UserType'])) {
 					 }
 				?>
 				</a>
+				<a href="../app/logout.php" data-nav-section="menu">Log Out</a>				
 			</div>
 		</div>
 		<div id="fh5co-sayings">

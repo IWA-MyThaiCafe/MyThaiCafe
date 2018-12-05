@@ -42,72 +42,93 @@ if(isset($_POST["add_to_cart"]))
 	}
 }
 
+if(isset($_SESSION["UserID"])){
+	$user_id = $_SESSION['UserID'];
+
+	$sql = "SELECT  * FROM `user` WHERE id = '$user_id'";
+	$result = mysqli_query($db,$sql);
+	$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+	$count = mysqli_num_rows($result);
+	echo "<script>console.log( 'Debug Objects: " . json_encode($_POST) . "' );</script>";
+
+	if($count == 1) {
+		$email = $row['email'];
+		$phone = $row['phone']; 
+		$firstname = $row['firstname']; 
+		$password = $row['password'];
+		$lastname = $row['lastname']; 
+		$middlename = $row['middlename']; 
+		$street1 = $row['street1']; 
+		$street2 = $row['street2']; 
+		$city = $row['city']; 
+		$zip = $row['zip']; 
+		$state = $row['state'];
+		$country = $row['country'];
+		$mobile = $row['mobile'];
+	}else {
+		$message = "Profile not found";
+	}
+}
+
 if(isset($_POST["check_out"]))
 {
-	echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_cart"]) . "' );</script>";  
-	// TODO: CHeck whether user is logged in or not
-	// GUEST CHECKOUT - client_id = 1a1a1a1a1a
-	// GUEST CHECKOUT - address_id = generate uuid
-	
 	$order_id = uniqid();
 	$order = json_encode($_SESSION["shopping_cart"]);
 	// Logged in User checkout
 	if(isset($_SESSION["shopping_cart"])) {
-		$_SESSION['UserID'] = 'hello';
-		$client_id = $_SESSION['UserID'];
-		$address_id = uniqid();
-		echo "<script>console.log( 'Guest Check Out 1' );</script>";
-		echo "<script>console.log( 'Success Debug Objects: " . json_encode($_SESSION['UserID']) . "' );</script>";
-		
-		//  TODO: Get from database
-		$firstname = mysqli_real_escape_string($db,$_POST['firstname']); 
-		$lastname = mysqli_real_escape_string($db,$_POST['lastname']); 
-		$middlename = mysqli_real_escape_string($db,$_POST['middlename']); 
+		if(isset($_SESSION["UserID"])){
+			$client_id = $_SESSION['UserID'];
+			$address_id = uniqid();
+			
+			$firstname = mysqli_real_escape_string($db,$_POST['firstname']); 
+			$lastname = mysqli_real_escape_string($db,$_POST['lastname']); 
+			$middlename = mysqli_real_escape_string($db,$_POST['middlename']); 
 
-		$street1 = mysqli_real_escape_string($db,$_POST['street1']); 
-		$street2 = mysqli_real_escape_string($db,$_POST['street2']); 
-		$city = mysqli_real_escape_string($db,$_POST['city']); 
-		$zip = mysqli_real_escape_string($db,$_POST['zip']); 
-		$state = mysqli_real_escape_string($db,$_POST['state']);
-		$country = mysqli_real_escape_string($db,$_POST['country']);
-		$email = mysqli_real_escape_string($db,$_POST['email']);
-		$mobile = mysqli_real_escape_string($db,$_POST['mobile']);
+			$street1 = mysqli_real_escape_string($db,$_POST['street1']); 
+			$street2 = mysqli_real_escape_string($db,$_POST['street2']); 
+			$city = mysqli_real_escape_string($db,$_POST['city']); 
+			$zip = mysqli_real_escape_string($db,$_POST['zip']); 
+			$state = mysqli_real_escape_string($db,$_POST['state']);
+			$country = mysqli_real_escape_string($db,$_POST['country']);
+			$email = mysqli_real_escape_string($db,$_POST['email']);
+			$mobile = mysqli_real_escape_string($db,$_POST['mobile']);
 
-		$now = new DateTime();
-		$date = $now->format('Y-m-d H:i:s');
-	} else {
-		$client_id = '1a1a1a1a1a';
-		$address_id = uniqid();
+			$now = new DateTime();
+			$date = $now->format('Y-m-d H:i:s');
+		}
+		else {
+			$client_id = '1a1a1a1a1a';
+			$address_id = uniqid();
 
-		echo "<script>console.log( 'Guest Check Out' );</script>";
+			echo "<script>console.log( 'Guest Check Out' );</script>";
 
-		//  TODO: Get from database
-		$firstname = mysqli_real_escape_string($db,$_POST['firstname']); 
-		$lastname = mysqli_real_escape_string($db,$_POST['lastname']); 
-		$middlename = mysqli_real_escape_string($db,$_POST['middlename']); 
-		
-		$street1 = mysqli_real_escape_string($db,$_POST['street1']); 
-		$street2 = mysqli_real_escape_string($db,$_POST['street2']); 
-		$city = mysqli_real_escape_string($db,$_POST['city']); 
-		$state = mysqli_real_escape_string($db,$_POST['state']);
-		$country = mysqli_real_escape_string($db,$_POST['country']);
-		$zip = mysqli_real_escape_string($db,$_POST['zip']); 
-		$email = mysqli_real_escape_string($db,$_POST['email']);
-		$mobile = mysqli_real_escape_string($db,$_POST['mobile']);
+			$firstname = mysqli_real_escape_string($db,$_POST['firstname']); 
+			$lastname = mysqli_real_escape_string($db,$_POST['lastname']); 
+			$middlename = mysqli_real_escape_string($db,$_POST['middlename']); 
+			
+			$street1 = mysqli_real_escape_string($db,$_POST['street1']); 
+			$street2 = mysqli_real_escape_string($db,$_POST['street2']); 
+			$city = mysqli_real_escape_string($db,$_POST['city']); 
+			$state = mysqli_real_escape_string($db,$_POST['state']);
+			$country = mysqli_real_escape_string($db,$_POST['country']);
+			$zip = mysqli_real_escape_string($db,$_POST['zip']); 
+			$email = mysqli_real_escape_string($db,$_POST['email']);
+			$mobile = mysqli_real_escape_string($db,$_POST['mobile']);
 
-		$now = new DateTime();
-		$date = $now->format('Y-m-d H:i:s');
+			$now = new DateTime();
+			$date = $now->format('Y-m-d H:i:s');
+		}
 	}
 
 	// $sqlInsert="INSERT INTO orders (order_id,customer_id,address_id,order,created_date,street1,street2,city,state,country,zip,email,mobile) values('".$order_id."','".$client_id."','".$address_id."','".$order."','".$date."','".$street1."','".$street2."','".$city."','".$state."','".$country."','".$zip."','".$email."','".$mobile."')";
-	$sqlInsert="INSERT INTO orders values('".$order_id."','".$client_id."','".$address_id."','".$order."','".$date."','".$street1."','".$street2."','".$city."','".$state."','".$country."','".$zip."','".$email."','".$mobile."')";
+	$sqlInsert="INSERT INTO orders values('".$order_id."','".$client_id."','".$address_id."','".$order."','".$date."','".$street1."','".$street2."','".$city."','".$state."','".$country."','".$zip."','".$email."','".$mobile."','".$firstname."','".$lastname."','".$middlename."')";
 
 
 	if (mysqli_query($db, $sqlInsert))
 	{
 		echo "<script>console.log( 'Success Debug Objects: " . json_encode($_POST) . "' );</script>";
 		unset($_SESSION["shopping_cart"]);
-		header("location: index.php");
+		header("location: ./client/orders.php");
 	}
 	else{
 			echo '<script type="text/javascript">alert("Check out failed. Please try again!"); </script>';
@@ -197,8 +218,8 @@ if(isset($_GET["action"]))
 			<div class="fh5co-main-nav">
 				<div class="container-fluid">
 					<div class="fh5co-menu-1">
-						<a href="#" data-nav-section="home">Home</a>
-						<a href="#" data-nav-section="about">About</a>
+						<a href="index.php">Home</a>
+						<a href="about.php" data-nav-section="about">About</a>
 						<a href="#" data-nav-section="features">Features</a>
 					</div>
 					<div class="fh5co-logo">
@@ -212,6 +233,32 @@ if(isset($_GET["action"]))
 				</div>
 			</div>
 		</div>
+
+		<div class="fh5co-sayings-s-menu">
+			<div class="fh5co-menu-s-2">
+				<a href="./index.php" data-nav-section="home">Home</a>
+				<a href="./shopping.php" data-nav-section="events">Menu</a>
+				<a href="./checkout.php" data-nav-section="menu">Cart</a>
+				<a href=<?php echo (isset($_SESSION['UserID']) ? './client/profile.php' : './login.php' ) ?> data-nav-section="menu">
+				<?php 
+				 	if(isset($_SESSION['UserID'])) {
+						echo $_SESSION['firstName'];
+					}
+					 else{
+						 echo "Login";
+					 }
+				?>
+				</a>
+				<?php 
+					if(isset($_SESSION['UserID'])) {
+				?>
+				<a href="../app/logout.php" data-nav-section="menu">Log Out</a>		
+				<?php 
+					}
+				?>		
+			</div>
+		</div>
+
 		<div id="fh5co-contact" data-section="Order">
 			<div class="container ">
 				<div class="row text-center fh5co-heading row-padded">
@@ -269,47 +316,47 @@ if(isset($_GET["action"]))
                             <div class="col-md-5">
                                 <div class="form-group-1">
                                     <label for="firstname">First Name</label>
-                                    <input type="text" class="form-control custom-form-control" name="firstname" id="firstname" placeholder="John">
+                                    <input type="text" class="form-control custom-form-control" name="firstname" value="<?php echo htmlentities($firstname); ?>" id="firstname" placeholder="John">
                                 </div>
                                 <div class="form-group-1">
                                     <label for="lastname">Last Name</label>
-                                    <input type="text" class="form-control custom-form-control" name="lastname" id="lastname" placeholder="Carter">
+                                    <input type="text" class="form-control custom-form-control" name="lastname" value="<?php echo htmlentities($lastname); ?>" id="lastname" placeholder="Carter">
                                 </div>
                                 <div class="form-group-1">
                                     <label for="middlename">Middle Name</label>
-                                    <input type="text" class="form-control custom-form-control" name="middlename" id="middlename" placeholder="Hinkle">
+                                    <input type="text" class="form-control custom-form-control" name="middlename" value="<?php echo htmlentities($middlename); ?>" id="middlename" placeholder="Hinkle">
                                 </div>
                                 <div class="form-group-1">
                                     <label for="address1">Address Line 1</label>
-                                    <input type="text" class="form-control custom-form-control" name="street1" id="address1" placeholder="Address Line 1" required>
+                                    <input type="text" class="form-control custom-form-control" name="street1" value="<?php echo htmlentities($street1); ?>" id="address1" placeholder="Address Line 1" required>
                                 </div>
                                 <div class="form-group-1">
                                     <label for="address2">Address Line 2</label>
-                                    <input type="text" class="form-control custom-form-control" name="street2" id="address2" placeholder="Address Line 2">
+                                    <input type="text" class="form-control custom-form-control" name="street2" value="<?php echo htmlentities($street2); ?>" id="address2" placeholder="Address Line 2">
 								</div>
 								<div class="form-group-1">
                                     <label for="city">City</label>
-                                    <input type="text" class="form-control custom-form-control" name="city" id="city" placeholder="Bloomington" required>
+                                    <input type="text" class="form-control custom-form-control" name="city" value="<?php echo htmlentities($city); ?>" id="city" placeholder="Bloomington" required>
 								</div>
 								<div class="form-group-1">
                                     <label for="state">State</label>
-                                    <input type="text" placeholder="Indiana" class="form-control custom-form-control" name="state" id="state" required>
+                                    <input type="text" placeholder="Indiana" class="form-control custom-form-control" name="state" value="<?php echo htmlentities($state); ?>" id="state" required>
 								</div>
 								<div class="form-group-1">
                                     <label for="country">Country</label>
-                                    <input type="text"  placeholder="USA" class="form-control custom-form-control" name="country" id="country" required>
+                                    <input type="text"  placeholder="USA" class="form-control custom-form-control" name="country" value="<?php echo htmlentities($country); ?>" id="country" required>
 								</div>
 								<div class="form-group-1">
                                     <label for="email">Email</label>
-                                    <input type="email" placeholder="samuelj.jack@gmail.com" class="form-control custom-form-control" name="email" id="email" placeholder="Address Line 1" required>
+                                    <input type="email" placeholder="samuelj.jack@gmail.com" class="form-control custom-form-control" value="<?php echo htmlentities($email); ?>" name="email" id="email" placeholder="Address Line 1" required>
                                 </div>
                                 <div class="form-group-1">
                                     <label for="number">Mobile</label>
-                                    <input type="number" placeholder="812 369 3213" class="form-control custom-form-control" name="mobile" id="mobile" placeholder="Address Line 2" required>
+                                    <input type="number" placeholder="812 369 3213" class="form-control custom-form-control" name="mobile" value="<?php echo htmlentities($mobile); ?>" id="mobile" placeholder="Address Line 2" required>
 								</div>
 								<div class="form-group-1">
                                     <label for="zip">Zip</label>
-                                    <input type="number" placeholder="47408" class="form-control custom-form-control" value="47408" name="zip" id="zip" required>
+                                    <input type="number" placeholder="47408" class="form-control custom-form-control" value="<?php echo htmlentities($zip); ?>" name="zip" id="zip" required>
                                 </div>
                             </div>
                             <div class="col-md-5">

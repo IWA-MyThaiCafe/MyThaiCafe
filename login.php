@@ -81,7 +81,7 @@ ob_start();
 				$_SESSION['lastName'] = $row["lastname"];
 				$_SESSION['UserType'] = $row["role"];
 		      	if($row["role"] == "client"){
-			  		header("location: ./admin/profile.php");
+			  		header("location: ./client/index.php");
 			  	} else if($row["role"] == "admin"){
 			  		header("location: ./admin/index.php");
 			  	}else if($row["UserType"] == "USER" && $row["role"] == "blocked"){
