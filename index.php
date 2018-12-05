@@ -179,7 +179,7 @@ ob_start();
 
 						<div class="fh5co-v-half">
 							<div class="fh5co-h-row-2 fh5co-reversed to-animate-2">
-								<div class="fh5co-v-col-2 fh5co-bg-img" style="background-image: url(images/res_img_7.jpg)"></div>
+								<div class="fh5co-v-col-2 fh5co-bg-img" style="background-image: url(images/res_img_8.jpg)"></div>
 								<div class="fh5co-v-col-2 fh5co-text arrow-right">
 									<h2>Tofu Tom Yum</h2>
 									<span class="pricing">$4.99</span>
@@ -187,7 +187,7 @@ ob_start();
 								</div>
 							</div>
 							<div class="fh5co-h-row-2 to-animate-2">
-								<div class="fh5co-v-col-2 fh5co-bg-img" style="background-image: url(images/res_img_6.jpg)"></div>
+								<div class="fh5co-v-col-2 fh5co-bg-img" style="background-image: url(images/res_img_4.jpg)"></div>
 								<div class="fh5co-v-col-2 fh5co-text arrow-left">
 									<h2>Larb</h2>
 									<span class="pricing">$8.50</span>
