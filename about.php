@@ -67,14 +67,49 @@ ob_start();
 						<a href="./about.php" class="external" data-nav-section="about">About</a>
 					</div>
 					<div class="fh5co-logo">
-						<a href="index.html">My Thai Cafe</a>
+						<a href="index.html" class="external">My Thai Cafe</a>
 					</div>
 					<div class="fh5co-menu-2">
-						<a href="./shopping.php" data-nav-section="menu">Menu</a>
-						<a href="http://ella.ils.indiana.edu/~tsopher/test/contact.php" class="external" data-nav-section="contact">Contact</a>
+						<a href="./shopping.php" class="external" data-nav-section="menu">Menu</a>
+						<a href="./contact.php" class="external" data-nav-section="contact">Contact</a>
 					</div>
 				</div>
 				
+			</div>
+		</div>
+	</div>
+
+		
+	</div>
+	<div class="fh5co-sayings-s-menu">
+			<div class="fh5co-menu-s-2">
+				<!-- <a href="./index.php" data-nav-section="home">Home</a>
+				<a href="./shopping.php" data-nav-section="events">Menu</a> -->
+				<?php 
+					if(isset($_SESSION['UserID'])) {
+				?>
+				<a href="./client/index.php" data-nav-section="menu">My Home</a>	
+				<?php 
+					}
+				?>
+				<a href="./checkout.php" data-nav-section="menu">Cart</a>
+				<a href=<?php echo (isset($_SESSION['UserID']) ? './client/profile.php' : './login.php' ) ?> data-nav-section="menu">
+				<?php 
+				 	if(isset($_SESSION['UserID'])) {
+						echo $_SESSION['firstName'];
+					}
+					 else{
+						 echo "Login";
+					 }
+				?>
+				</a>
+				<?php 
+					if(isset($_SESSION['UserID'])) {
+				?>
+				<a href="../app/logout.php" data-nav-section="menu">Log Out</a>		
+				<?php 
+					}
+				?>		
 			</div>
 		</div>
 
@@ -136,7 +171,7 @@ ob_start();
 		<div class="container">
 			<div class="row row-padded">
 				<div class="col-md-12 text-center">
-					<p class="to-animate">&copy; 2016 Foodee Free HTML5 Template. <br> Designed by <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a> Demo Images: <a href="http://pexels.com/" target="_blank">Pexels</a> <br> Tasty Icons Free <a href="http://handdrawngoods.com/store/tasty-icons-free-food-icons/" target="_blank">handdrawngoods</a>
+					<p class="to-animate">&copy; 2018 My Thai Cafe. <br> Bloomington, IN
 					</p>
 					<p class="text-center to-animate"><a href="#" class="js-gotop">Go To Top</a></p>
 				</div>

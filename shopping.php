@@ -116,21 +116,19 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 	<body>
 	<!-- Menu -->
 	<div id="fh5co-container">	
-		<div class="js-sticky">
+	<div class="js-sticky">
 			<div class="fh5co-main-nav">
 				<div class="container-fluid">
 					<div class="fh5co-menu-1">
-						<a href="#" data-nav-section="home">Home</a>
-						<a href="#" data-nav-section="about">About</a>
-						<a href="#" data-nav-section="features">Features</a>
+						<a href="./index.php" class="external" data-nav-section="home">Home</a>
+						<a href="./about.php" class="external" data-nav-section="about">About</a>
 					</div>
 					<div class="fh5co-logo">
-						<a href="index.html">My Thai Cafe</a>
+						<a href="index.html" class="external">My Thai Cafe</a>
 					</div>
 					<div class="fh5co-menu-2">
-						<a href="#" data-nav-section="menu">Menu</a>
-						<a href="#" data-nav-section="events">Events</a>
-						<a href="#" data-nav-section="reservation">Reservation</a>
+						<a href="./shopping.php" class="external" data-nav-section="menu">Menu</a>
+						<a href="./contact.php" class="external" data-nav-section="contact">Contact</a>
 					</div>
 				</div>
 				
@@ -241,68 +239,55 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 					</div>
 					<div class="col-md-6">
 						<div class="fh5co-food-menu to-animate-2">
-							<h2 class="fh5co-dishes">Steak</h2>
+							<h2 class="fh5co-dishes">Stir Fry Entree`s</h2>
 							<ul>
-								<li>
-									<div class="fh5co-food-desc">
-										<figure>
-											<img src="images/res_img_3.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
-										</figure>
-										<div>
-											<h3>Beef Steak</h3>
-											<p>Far far away, behind the word mountains.</p>
-										</div>
-									</div>
-									<div class="fh5co-food-pricing">
-										$17.50
-									</div>
-								</li>
-								<li>
-									<div class="fh5co-food-desc">
-										<figure>
-											<img src="images/res_img_4.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
-										</figure>
-										<div>
-											<h3>Tomato with Chicken</h3>
-											<p>Far far away, behind the word mountains.</p>
-										</div>
-									</div>
-									<div class="fh5co-food-pricing">
-										$7.99
-									</div>
-								</li>
-								<li>
-									<div class="fh5co-food-desc">
-										<figure>
-											<img src="images/res_img_2.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
-										</figure>
-										<div>
-											<h3>Sausages from Italy</h3>
-											<p>Far far away, behind the word mountains.</p>
-										</div>
-									</div>
-									<div class="fh5co-food-pricing">
-										$12.99
-									</div>
-								</li>
-								<li>
-									<div class="fh5co-food-desc">
-										<figure>
-											<img src="images/res_img_8.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
-										</figure>
-										<div>
-											<h3>Beef Grilled</h3>
-											<p>Far far away, behind the word mountains.</p>
-										</div>
-									</div>
-									<div class="fh5co-food-pricing">
-										$12.99
-									</div>
-								</li>
+                                <?php
+                                    $query = "SELECT * FROM menu WHERE category='entrees'";
+                                    $result = mysqli_query($db,$query);
+                                    if(mysqli_num_rows($result) > 0)
+                                    {
+                                        while($row = mysqli_fetch_array($result))
+                                        {
+                                ?>
+                                    <li>
+                                            <div class="fh5co-food-desc">
+                                                <figure>
+                                                    <img src="images/res_img_5.jpg" class="img-responsive" alt="Free HTML5 Templates by FREEHTML5.co">
+                                                </figure>
+                                                <div>
+                                                    <h3><?php echo $row["name"]; ?></h3>
+                                                    <p><?php echo $row["description"]; ?></p>
+                                                </div>    
+                                                <div class="row item-quantity">
+                                                <div class="col-md-12">
+                                                    <form class="form-inline" method="post" action="shopping.php?action=add&id=<?php echo $row["id"];?>" >
+                                                        <div class="form-group">
+                                                            <input type="hidden" name="hidden_name" value="<?php echo $row["name"]; ?>" />
+                                                            <input type="hidden" name="hidden_price" value="<?php echo $row["price"]; ?>" />
+                                                            <input type="hidden" name="hidden_id" value="<?php echo $row["id"]; ?>" />
+                                                            <input type="number" name="quantity" min="1" max="10" step="1" class="form-control add-to-cart" placeholder="Count" required>
+                                                        </div>
+                                                        <button type="submit" name="add_to_cart" class="btn btn-warning add-to-cart-button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Cart</button>
+                                                    </form> 
+                                                </div>
+                                                    
+                                                </div>  
+                                            </div>
+                                            <div class="fh5co-food-pricing">
+                                                $ <?php echo $row["price"]; ?>
+                                            </div>
+                                    </li>
+                                <?php
+                                        }
+                                    }
+                                ?>
 							</ul>
 						</div>
 					</div>
-					<div class="col-md-6">
+					
+				</div>
+				<div class="row">
+				<div class="col-md-6">
 						<div class="fh5co-food-menu to-animate-2">
 							<h2 class="fh5co-drinks">Drinks</h2>
 							<ul>

@@ -1,13 +1,13 @@
 <?php
-session_start();
-if(isset($_SESSION['UserType'])) {
-	if($_SESSION['UserType'] != "admin") {
+	session_start();
+	include("../app/config.php");
+	if(isset($_SESSION['UserType'])) {
+		if($_SESSION['UserType'] != "admin") {
+			header("location: ../login.php");
+		}
+	} else {
 		header("location: ../login.php");
 	}
-} else {
-	header("location: ../login.php");
-}
-// ob_start();
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -17,7 +17,7 @@ if(isset($_SESSION['UserType'])) {
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Add New Item | My thai Cafe</title>
+	<title>Enquiries | My thai Cafe</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="My thai cafe" />
 	<meta name="keywords" content="My thai cafe, bloomington, thai, indiana university,thai, thai cuisine" />
@@ -58,49 +58,77 @@ if(isset($_SESSION['UserType'])) {
 	<!-- Modernizr JS -->
 	<script src="../js/modernizr-2.6.2.min.js"></script>
 	<!-- FOR IE9 below -->
-	<!--[if lt IE 9]>
+	<!--[if lt IE 9]> 
 	<script src="js/respond.min.js"></script>                                                        
 	<![endif]-->
 
 	</head>
 	<body>
 	<?php
-		include("../app/config.php");
-		// include('header.php');
+        include("../app/config.php");
 
-		if($_SERVER["REQUEST_METHOD"] == "POST") {
+        if(isset($_GET['code'])){
+            $id = $_GET['code'];
+            echo "<script>console.log( 'Debug Objects: " . json_encode($_GET['code'] ) . "' );</script>";
+        }
+        
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+            $id = mysqli_real_escape_string($db,$_POST['id']);
+			$itemcode1 = mysqli_real_escape_string($db,$_POST['code']);
+			$itemname1 = mysqli_real_escape_string($db,$_POST['name']);
+			$description1 = mysqli_real_escape_string($db,$_POST['description']); 
+			$category1 = mysqli_real_escape_string($db,$_POST['category']); 
+			$price1 = mysqli_real_escape_string($db,$_POST['price']); 
+			$spice1 = mysqli_real_escape_string($db,$_POST['spice']); 
 
-			$itemcode = mysqli_real_escape_string($db,$_POST['code']);
-			$itemname = mysqli_real_escape_string($db,$_POST['name']);
-			$description = mysqli_real_escape_string($db,$_POST['description']); 
-			$category = mysqli_real_escape_string($db,$_POST['category']); 
-			$price = mysqli_real_escape_string($db,$_POST['price']); 
-			$spice = mysqli_real_escape_string($db,$_POST['spice']); 
-
-			$sql = "SELECT  * FROM menu WHERE code = '$itemcode'";
+			$sql = "SELECT  * FROM menu WHERE id = '$id'";
 			$result = mysqli_query($db,$sql);
 			$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-			$count = mysqli_num_rows($result);
+            $count = mysqli_num_rows($result);
+            // echo "<script>console.log( 'Debug Objects: " . json_encode($count) . "' );</script>";
 				
-			if($count >= 1) {
-				$message  = "<p>Item exists in our records</p>";
-			}
-				else{
-					$id = uniqid();
-					$sqlInsert="INSERT INTO menu(id,code,name,description,category,price,spice) values('".$id."','".$itemcode."','".$itemname."','".$description."','".$category."','".$price."','".$spice."')";
+			if($count == 1) {
+                echo "<script>console.log( 'Debug Objects: " . json_encode($_POST) . "' );</script>";
+                $sqlUpdate="UPDATE menu SET code = '".$itemcode1."' ,name = '".$itemname1."',description ='".$description1."',price='".$price1."',spice='".$spice1."' WHERE id = '".$id."'";
 					
-					if (mysqli_query($db, $sqlInsert))
-					{
-							echo "<script>console.log( 'Debug Objects: " . json_encode($_POST) . "' );</script>";
-							$message = "<p><strong> New Item </strong> has been added to menu</p>";                                       
-							// header("location: home.php");
-							
-					}
-					else{
-							$message = "<p><strong> Unable </strong> to add new item to menu. Please try again</p>";                                       
-					}
-			}
-		}
+                if (mysqli_query($db, $sqlUpdate))
+                {
+                        echo "<script>console.log( 'Debug Objects: " . json_encode($_POST) . "' );</script>";
+                        $message = "<p><strong> Updated </strong> menu item</p>";                                       
+                        header("location: menu.php");
+                        
+                }
+                else{
+                        $message = "<p><strong> Unable </strong> to update new item to menu. Please try again</p>";                                       
+                }
+            }
+        } else {
+
+        }
+
+        if(isset($_GET['code'])){
+            $id = $_GET['code'];
+            echo "<script>console.log( 'Debug Objects: " . json_encode($_GET['code'] ) . "' );</script>";
+        }
+        $sql = "SELECT  * FROM `menu` WHERE id = '$id'";
+        $result = mysqli_query($db,$sql);
+        $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+        $count = mysqli_num_rows($result);
+        echo "<script>console.log( 'Debug Objects: " . json_encode($row) . "' );</script>";
+      
+
+        if($count == 1) {
+            $itemid  = $row["id"];
+            $itemcode = $row["code"];
+            $itemname = $row["name"];
+            $description = $row["description"]; 
+            $category = $row["category"]; 
+            $price = $row["price"]; 
+            $spice =$row["spice"]; 
+            $featured =$row["featured"]; 
+        }else {
+            $message = "Item Not Found";
+        }
 	?> 
 
 	<div id="fh5co-container">
@@ -123,7 +151,8 @@ if(isset($_SESSION['UserType'])) {
 				
 			</div>
 		</div>
-		<div class="fh5co-sayings-s-menu">
+		
+        <div class="fh5co-sayings-s-menu">
 			<div class="fh5co-menu-s-2">
 				<a href="./index.php" data-nav-section="home">Home</a>
 				<a href="./menu.php" data-nav-section="events">Menu</a>
@@ -143,65 +172,38 @@ if(isset($_SESSION['UserType'])) {
 			</div>
 		</div>
 
-		<div id="fh5co-contact" data-section="reservation">
-			<div class="container">
-				<div class="row text-center fh5co-heading row-padded">
-					<div class="col-md-8 col-md-offset-2">
-						<h2 class="heading to-animate">Add New Item</h2>
-						<p class="sub-heading to-animate">Add new item to the exquiste <strong>My Thai Cafe</strong> menu.</p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6 to-animate-2">
-							<?php
-								echo $message
-							?>
-						<form method="post" action="../admin/additem.php">
-							<div class="form-group">
-								<label for="code" class="sr-only">Item Code</label>
-								<input id="code" name="code" class="form-control" placeholder="Item Code (eg. A1)" type="text">
-							</div>
-							<div class="form-group ">
-								<label for="name" class="sr-only">Name</label>
-								<input id="name" name="name" class="form-control" placeholder="Item Name" type="text">
-							</div>
-							<div class="form-group">
-								<label for="category" class="sr-only">category</label>
-								<select name="category" class="form-control" id="occation">
-								<option value="appetizers">Appetizers</option>
-								<option value="yum">Yum</option>
-								<option value="soups">Soups</option>
-								<option value="friedrice">Fried Rice</option>
-								<option value="entrees">Entrees</option>
-								<option value="drinks">Drinks</option>
-								<option value="desert">Desert</option>
-								</select>
-							</div>
-							<div class="form-group">
-								<label for="spicy" class="sr-only">Spice</label>
-								<select name="spice" class="form-control" id="occation">
-								<option value="1">Low</option>
-								<option value="2">Medium</option>
-								<option value="3">High</option>
-								<option value="4">Thai Spicy</option>
-								</select>
-							</div>
-							<div class="form-group ">
-								<label for="price" class="sr-only">Price</label>
-								<input id="price" name="price" step="0.01" class="form-control" placeholder="Price" type="number">
-							</div>
-							<div class="form-group ">
-								<label for="description" class="sr-only">Description</label>
-								<textarea name="description" id="description" cols="40" rows="5"></textarea>
-							</div>
-							<button type="submit" class="btn btn-primary">ADD ITEM</button>
-						</form>
-						</div>
+		
+
+	<div id="fh5co-contact" data-section="reservation">
+			<div class="row text-center fh5co-heading row-padded">
+				<div class="col-md-8 col-md-offset-2">
+					<h2 class="heading to-animate">Enquiry Details</h2>
+					<p class="sub-heading to-animate">All Enquiries till date</p>
 				</div>
 			</div>
-		</div>
-
-
+			<?php 
+				$all_order = 'select * from enquiries order by created_date desc';
+				$result = mysqli_query($db,$all_order);
+				if(mysqli_num_rows($result) > 0)
+				{
+					while($row = mysqli_fetch_array($result))
+					{
+						$order = json_decode($row['order'],true);
+						echo "<script>console.log( 'Debug Objects firstname: " . json_encode($row["firstname"]) . "' );</script>";
+			?>
+				<div class="container">
+					<h3>Enquiry Details</h3>
+						<p class="address"><strong>Date :</strong> <?php echo $row["created_date"] ?></p>
+						<br>
+						<p class="address"><strong>Name :</strong><?php echo $row["name"] ?></p>
+						<strong>Message :</strong>
+						<p class="address"><?php echo $row["message"] ?></p>
+				</div>
+				<hr>
+			<?php 
+					}
+				}
+			?>
 	</div>
 
 	<div id="fh5co-footer">

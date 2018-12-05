@@ -66,25 +66,23 @@
 
 
 	<div id="fh5co-container">
-		<div class="js-sticky">
+	<div class="js-sticky">
 			<div class="fh5co-main-nav">
 				<div class="container-fluid">
 					<div class="fh5co-menu-1">
-						<a href="../index.php" data-nav-section="home">Home</a>
-						<a href="../index.php" data-nav-section="about">About</a>
-						<a href="../index.php" data-nav-section="features">Features</a>
+						<a href="../index.php" class="external" data-nav-section="home">Home</a>
+						<a href="../about.php" class="external" data-nav-section="about">About</a>
 					</div>
 					<div class="fh5co-logo">
-						<a href="index.html">My Thai Cafe</a>
+						<a href="../index.php" class="external">My Thai Cafe</a>
 					</div>
 					<div class="fh5co-menu-2">
-						<a href="../index.php" data-nav-section="menu">Menu</a>
-						<a href="../index.php" data-nav-section="events">Events</a>
-						<a href="../index.php" data-nav-section="reservation">Reservation</a>
+						<a href="../shopping.php" class="external" data-nav-section="menu">Menu</a>
+						<a href="../contact.php" class="external" data-nav-section="contact">Contact</a>
 					</div>
 				</div>
+				
 			</div>
-			
 		</div>
 		
 		<div class="fh5co-sayings-s-menu">
@@ -92,6 +90,7 @@
 				<a href="./index.php" data-nav-section="home">Home</a>
 				<a href="./menu.php" data-nav-section="events">Menu</a>
 				<a href="./orders.php" data-nav-section="menu">Orders</a>
+				<a href="./enquiry.php" data-nav-section="menu">Enquiries</a>
 				<a href="./profile.php" data-nav-section="menu">
 				<?php 
 				 	if(isset($_SESSION['firstName'])) {

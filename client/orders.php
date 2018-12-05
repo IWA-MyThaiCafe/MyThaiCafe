@@ -155,8 +155,8 @@
 		
         <div class="fh5co-sayings-s-menu">
 			<div class="fh5co-menu-s-2">
-				<a href="./index.php" data-nav-section="home">Home</a>
-				<a href="./menu.php" data-nav-section="events">Menu</a>
+				<a href="./index.php" data-nav-section="home">My Portal</a>
+				<!-- <a href="../shopping.php" data-nav-section="events">Menu</a> -->
 				<a href="./orders.php" data-nav-section="menu">Orders</a>
 				<a href="./profile.php" data-nav-section="menu">
 				<?php 

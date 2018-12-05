@@ -4,7 +4,7 @@ session_start();
 
 if(isset($_SESSION['UserType'])) {
 	if($_SESSION['UserType'] != "client") {
-		header("location: ../login.php");
+		header("location: ../admin/index.php");
 	}
 } else {
 	header("location: ../login.php");
@@ -81,7 +81,7 @@ if(isset($_SESSION['UserType'])) {
 						<a href="index.html">My Thai Cafe</a>
 					</div>
 					<div class="fh5co-menu-2">
-						<a href="../index.php" data-nav-section="menu">Menu</a>
+						<a href="../index.php" >Menu</a>
 						<a href="../index.php" data-nav-section="events">Events</a>
 						<a href="../index.php" data-nav-section="reservation">Reservation</a>
 					</div>
@@ -92,8 +92,8 @@ if(isset($_SESSION['UserType'])) {
 		
 		<div class="fh5co-sayings-s-menu">
 			<div class="fh5co-menu-s-2">
-				<a href="./index.php" data-nav-section="home">Home</a>
-				<a href="../shopping.php" data-nav-section="events">Menu</a>
+				<a href="./index.php" data-nav-section="home">My Portal</a>
+				<!-- <a href="../shopping.php" data-nav-section="events">Menu</a> -->
 				<a href="./orders.php" data-nav-section="menu">Orders</a>
 				<a href="./profile.php" data-nav-section="menu">
 				<?php 

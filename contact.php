@@ -1,6 +1,27 @@
 <?php
-session_start();
-ob_start();
+	session_start();
+	ob_start();
+
+	include("./app/config.php");
+	if($_SERVER["REQUEST_METHOD"] == "POST") {
+		$email = mysqli_real_escape_string($db,$_POST['email']);
+		$name = mysqli_real_escape_string($db,$_POST['contact_name']); 
+		$message = mysqli_real_escape_string($db,$_POST['message']); 
+		$id = uniqid();
+		$date = date('Y-m-d H:i:s');
+			
+		$sqlInsert="INSERT INTO enquiries values('".$id."','".$name."','".$email."','".$message."','".$date."')";
+			
+		if (mysqli_query($db, $sqlInsert))
+		{
+			echo '<script type="text/javascript">alert("Enquiry has been successfully submitted!"); </script>';
+			$message = "Enquiry sucessfully submitted !";
+		}
+		else{
+			echo '<script type="text/javascript">alert("Failed to submit enquiry. Please try again!"); </script>';
+			$message = "Enquiry failed!";
+		}
+	}
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -59,22 +80,53 @@ ob_start();
 
 	<div id="fh5co-container">
 		
-		<div class="js-sticky">
+	<div class="js-sticky">
 			<div class="fh5co-main-nav">
 				<div class="container-fluid">
 					<div class="fh5co-menu-1">
-						<a href="http://ella.ils.indiana.edu/~tsopher/test/home.php" class="external" data-nav-section="home">Home</a>
-						<a href="http://ella.ils.indiana.edu/~tsopher/test/about.php" class="external">About</a>
+						<a href="./index.php" class="external" data-nav-section="home">Home</a>
+						<a href="./about.php" class="external" data-nav-section="about">About</a>
 					</div>
 					<div class="fh5co-logo">
-						<a href="index.html">My Thai Cafe</a>
+						<a href="index.html" class="external">My Thai Cafe</a>
 					</div>
 					<div class="fh5co-menu-2">
-						<a href="#" data-nav-section="menu">Menu</a>
-						<a href="http://ella.ils.indiana.edu/~tsopher/test/home.php" class="external" data-nav-section="contact">Contact</a>
+						<a href="./shopping.php" class="external" data-nav-section="menu">Menu</a>
+						<a href="./contact.php" class="external" data-nav-section="contact">Contact</a>
 					</div>
 				</div>
 				
+			</div>
+		</div>
+		<div class="fh5co-sayings-s-menu">
+			<div class="fh5co-menu-s-2">
+				<!-- <a href="./index.php" data-nav-section="home">Home</a>
+				<a href="./shopping.php" data-nav-section="events">Menu</a> -->
+				<?php 
+					if(isset($_SESSION['UserID'])) {
+				?>
+				<a href="./client/index.php" data-nav-section="menu">My Home</a>	
+				<?php 
+					}
+				?>
+				<a href="./checkout.php" data-nav-section="menu">Cart</a>
+				<a href=<?php echo (isset($_SESSION['UserID']) ? './client/profile.php' : './login.php' ) ?> data-nav-section="menu">
+				<?php 
+				 	if(isset($_SESSION['UserID'])) {
+						echo $_SESSION['firstName'];
+					}
+					 else{
+						 echo "Login";
+					 }
+				?>
+				</a>
+				<?php 
+					if(isset($_SESSION['UserID'])) {
+				?>
+				<a href="../app/logout.php" data-nav-section="menu">Log Out</a>		
+				<?php 
+					}
+				?>		
 			</div>
 		</div>
 
@@ -112,23 +164,25 @@ ob_start();
 						</ul>
 					</div>
 					<div class="col-md-6 to-animate-2">
-						<h3>Contact Form</h3>
-						<div class="form-group ">
-							<label for="name" class="sr-only">Name</label>
-							<input id="name" class="form-control" placeholder="Name" type="text">
-						</div>
-						<div class="form-group ">
-							<label for="email" class="sr-only">Email</label>
-							<input id="email" class="form-control" placeholder="Email" type="email">
-						</div>
-													
-						<div class="form-group ">
-							<label for="message" class="sr-only">Message</label>
-							<textarea name="" id="message" cols="30" rows="5" class="form-control" placeholder="Message"></textarea>
-						</div>
-						<div class="form-group ">
-							<input class="btn btn-primary" value="Send Message" type="submit">
-						</div>
+						<form action="./contact.php" method="post">
+							<h3>Contact Form</h3>
+							<div class="form-group ">
+								<label for="name" class="sr-only">Name</label>
+								<input id="name" name="contact_name" class="form-control" placeholder="Name" type="text" required>
+							</div>
+							<div class="form-group ">
+								<label for="email" class="sr-only">Email</label>
+								<input id="email" name="email" class="form-control" placeholder="Email" type="email" required>
+							</div>
+														
+							<div class="form-group ">
+								<label for="message" class="sr-only">Message</label>
+								<textarea name="message" id="message" cols="30" rows="5" class="form-control" placeholder="Message" required></textarea>
+							</div>
+							<div class="form-group ">
+								<button class="btn btn-primary" value="Send Message" type="submit"> Submit</button>
+							</div>
+						</form>
 						</div>
 				</div>
 			</div>
@@ -141,7 +195,7 @@ ob_start();
 		<div class="container">
 			<div class="row row-padded">
 				<div class="col-md-12 text-center">
-					<p class="to-animate">&copy; 2016 Foodee Free HTML5 Template. <br> Designed by <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a> Demo Images: <a href="http://pexels.com/" target="_blank">Pexels</a> <br> Tasty Icons Free <a href="http://handdrawngoods.com/store/tasty-icons-free-food-icons/" target="_blank">handdrawngoods</a>
+					<p class="to-animate">&copy; 2018 My Thai Cafe. <br> Bloomington, IN
 					</p>
 					<p class="text-center to-animate"><a href="#" class="js-gotop">Go To Top</a></p>
 				</div>

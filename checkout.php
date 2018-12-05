@@ -128,7 +128,12 @@ if(isset($_POST["check_out"]))
 	{
 		echo "<script>console.log( 'Success Debug Objects: " . json_encode($_POST) . "' );</script>";
 		unset($_SESSION["shopping_cart"]);
-		header("location: ./client/orders.php");
+		if(isset($_SESSION["UserID"])) {
+			header("location: ./client/orders.php");
+		} else {
+			echo '<script type="text/javascript">alert("Guest Order succesfully placed"); </script>';
+			header("location: ./index.php");
+		}
 	}
 	else{
 			echo '<script type="text/javascript">alert("Check out failed. Please try again!"); </script>';
@@ -218,26 +223,34 @@ if(isset($_GET["action"]))
 			<div class="fh5co-main-nav">
 				<div class="container-fluid">
 					<div class="fh5co-menu-1">
-						<a href="index.php">Home</a>
-						<a href="about.php" data-nav-section="about">About</a>
-						<a href="#" data-nav-section="features">Features</a>
+						<a href="./index.php" class="external" data-nav-section="home">Home</a>
+						<a href="./about.php" class="external" data-nav-section="about">About</a>
 					</div>
 					<div class="fh5co-logo">
-						<a href="index.html">My Thai Cafe</a>
+						<a href="index.html" class="external">My Thai Cafe</a>
 					</div>
 					<div class="fh5co-menu-2">
-						<a href="#" data-nav-section="menu">Menu</a>
-						<a href="#" data-nav-section="events">Events</a>
-						<a href="#" data-nav-section="reservation">Reservation</a>
+						<a href="./shopping.php" class="external" data-nav-section="menu">Menu</a>
+						<a href="./contact.php" class="external" data-nav-section="contact">Contact</a>
 					</div>
 				</div>
+				
 			</div>
 		</div>
 
+	</div>
+
 		<div class="fh5co-sayings-s-menu">
 			<div class="fh5co-menu-s-2">
-				<a href="./index.php" data-nav-section="home">Home</a>
-				<a href="./shopping.php" data-nav-section="events">Menu</a>
+				<!-- <a href="./index.php" data-nav-section="home">Home</a>
+				<a href="./shopping.php" data-nav-section="events">Menu</a> -->
+				<?php 
+					if(isset($_SESSION['UserID'])) {
+				?>
+				<a href="./client/index.php" data-nav-section="menu">My Home</a>	
+				<?php 
+					}
+				?>
 				<a href="./checkout.php" data-nav-section="menu">Cart</a>
 				<a href=<?php echo (isset($_SESSION['UserID']) ? './client/profile.php' : './login.php' ) ?> data-nav-section="menu">
 				<?php 
@@ -310,7 +323,8 @@ if(isset($_GET["action"]))
                         <br><br>
                         <h1>
                             Delivery Address
-                        </h1>
+						</h1>
+						<br>
                          <form action="./checkout.php" method="post">
                         <div class="row">
                             <div class="col-md-5">
