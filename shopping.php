@@ -134,6 +134,37 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 				
 			</div>
 		</div>
+		<div class="fh5co-sayings-s-menu">
+			<div class="fh5co-menu-s-2">
+				<!-- <a href="./index.php" data-nav-section="home">Home</a>
+				<a href="./shopping.php" data-nav-section="events">Menu</a> -->
+				<?php 
+					if(isset($_SESSION['UserID'])) {
+				?>
+				<a href="./client/index.php" data-nav-section="menu">My Home</a>	
+				<?php 
+					}
+				?>
+				<a href="./checkout.php" data-nav-section="menu">Cart</a>
+				<a href=<?php echo (isset($_SESSION['UserID']) ? './client/profile.php' : './login.php' ) ?> data-nav-section="menu">
+				<?php 
+				 	if(isset($_SESSION['UserID'])) {
+						echo $_SESSION['firstName'];
+					}
+					 else{
+						 echo "Login";
+					 }
+				?>
+				</a>
+				<?php 
+					if(isset($_SESSION['UserID'])) {
+				?>
+				<a href="../app/logout.php" data-nav-section="menu">Log Out</a>		
+				<?php 
+					}
+				?>		
+			</div>
+		</div>
 
 		<div id="fh5co-menus" data-section="menu">
 			<div class="container">
@@ -423,6 +454,7 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 		</div>	
 	</div>
 	
+	
 
 	<div id="fh5co-footer">
 		<div class="container">
@@ -443,6 +475,7 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 				</div>
 			</div>
 		</div>
+		
 	</div>
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
