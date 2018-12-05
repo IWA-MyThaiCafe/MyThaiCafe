@@ -163,6 +163,13 @@ echo "<script>console.log( 'Debug Objects: " . json_encode($_SESSION["shopping_c
 				<?php 
 					}
 				?>		
+				<?php 
+					if(!isset($_SESSION['UserID'])) {
+				?>
+				<a href="./register.php" data-nav-section="menu">Register</a>		
+				<?php 
+					}
+				?>
 			</div>
 		</div>
 

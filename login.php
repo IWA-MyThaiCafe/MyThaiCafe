@@ -140,7 +140,14 @@ ob_start();
 				<a href="../app/logout.php" data-nav-section="menu">Log Out</a>		
 				<?php 
 					}
-				?>		
+				?>	
+				<?php 
+					if(!isset($_SESSION['UserID'])) {
+				?>
+				<a href="./register.php" data-nav-section="menu">Register</a>		
+				<?php 
+					}
+				?>	
 			</div>
 		</div>
 			</div>

@@ -148,7 +148,7 @@ if(isset($_SESSION['UserType'])) {
 		</div>
 
 		<div id="fh5co-about" data-section="about">
-			<div class="fh5co-2col fh5co-text fh5co-bg to-animate-2" style="background-image: url(../images/res_img_1.jpg)">
+			<div class="fh5co-2col fh5co-text fh5co-bg to-animate-2" style="background-image: url(../images/res_img_11.jpg)">
 			<h2 class="heading to-animate">ORDERS</h2>
 				<p class="to-animate"><span class="firstcharacter">V</span>iew your restaurant orders here. </p>
 				<p class="text-center to-animate"><a href="./orders.php" class="btn btn-primary btn-outline">View Orders</a></p>
@@ -169,7 +169,7 @@ if(isset($_SESSION['UserType'])) {
 		<div class="container">
 			<div class="row row-padded">
 				<div class="col-md-12 text-center">
-					<p class="to-animate">&copy; 2016 Foodee Free HTML5 Template. <br> Designed by <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a> Demo Images: <a href="http://pexels.com/" target="_blank">Pexels</a> <br> Tasty Icons Free <a href="http://handdrawngoods.com/store/tasty-icons-free-food-icons/" target="_blank">handdrawngoods</a>
+					<p class="to-animate">&copy; 2018 My Thai Cafe. <br> Bloomington, IN
 					</p>
 					<p class="text-center to-animate"><a href="#" class="js-gotop">Go To Top</a></p>
 				</div>
@@ -184,7 +184,7 @@ if(isset($_SESSION['UserType'])) {
 				</div>
 			</div>
 		</div>
-	</div>
+	</div
 	
 	<!-- jQuery -->
 	<script src="../js/jquery.min.js"></script>

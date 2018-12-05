@@ -124,6 +124,13 @@ ob_start();
 				<?php 
 					}
 				?>		
+				<?php 
+					if(!isset($_SESSION['UserID'])) {
+				?>
+				<a href="./register.php" class="external" data-nav-section="menu">Register</a>		
+				<?php 
+					}
+				?>
 			</div>
 		</div>
 			</div>
