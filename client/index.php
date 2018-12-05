@@ -148,7 +148,7 @@ if(isset($_SESSION['UserType'])) {
 		</div>
 
 		<div id="fh5co-about" data-section="about">
-			<div class="fh5co-2col fh5co-text fh5co-bg to-animate-2" style="background-image: url(../images/res_img_11.jpg)">
+			<div class="fh5co-2col fh5co-text fh5co-bg to-animate-2" style="background-image: url(../images/slide_1.jpg)">
 			<h2 class="heading to-animate">ORDERS</h2>
 				<p class="to-animate"><span class="firstcharacter">V</span>iew your restaurant orders here. </p>
 				<p class="text-center to-animate"><a href="./orders.php" class="btn btn-primary btn-outline">View Orders</a></p>
